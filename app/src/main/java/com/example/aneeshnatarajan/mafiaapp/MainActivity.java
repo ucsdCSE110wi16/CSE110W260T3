@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Button button = (Button) findViewById(R.id.button);
+        Button button1 = (Button)findViewById(R.id.button2);
 
     }
     /*
@@ -52,7 +53,11 @@ public class MainActivity extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.button);
         button.setClickable(false);
         //startActivity(intent);
-}
+    }
+    public void joinButtonClick(View view){
+        Intent intent = new Intent(this,JoinGame.class);
+        startActivity(intent);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
