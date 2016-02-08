@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
             int index = r.nextInt(length);
             code.append(alphabet.charAt(index));
         }
-        String output = "Entry Game Code is: " + (CharSequence)code;
-        TextView txtView = new TextView(this);
+        String output = "Entry Game Code is: " + code;
+        TextView txtView;
         txtView = (TextView)findViewById(R.id.button);
         txtView.setText(output);
         Button button = (Button) findViewById(R.id.button);
