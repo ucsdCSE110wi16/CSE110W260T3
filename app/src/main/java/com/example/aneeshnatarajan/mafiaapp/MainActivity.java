@@ -38,21 +38,7 @@ public class MainActivity extends AppCompatActivity {
     * */
     public void buttonOnClick(View view) {
         Intent intent = new Intent(this,Start_Game.class);
-        final String alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        final int length = alphabet.length();
-        StringBuilder code = new StringBuilder();
-        Random r = new Random();
-        for (int i = 0; i < 8; i++) {
-            int index = r.nextInt(length);
-            code.append(alphabet.charAt(index));
-        }
-        String output = "Entry Game Code is: " + code;
-        TextView txtView;
-        txtView = (TextView)findViewById(R.id.button);
-        txtView.setText(output);
-        Button button = (Button) findViewById(R.id.button);
-        button.setClickable(false);
-        //startActivity(intent);
+        startActivity(intent);
     }
     public void joinButtonClick(View view){
         Intent intent = new Intent(this,JoinGame.class);
