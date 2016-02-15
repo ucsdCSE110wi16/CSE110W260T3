@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cse110winter2015group3.mafia">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="f8frQdQmzFtvuyBqRd6H9OixCbu5QdD8ZOJtLV5e" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="ru3eERc3549M1TQdmb6XgSbRVBeLBGxVMTiSWJyA" />
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".StartGameActivity"
+            android:label="@string/title_activity_start_game"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".JoinGameActivity" />
+        <activity
+            android:name=".SignInSignUpActivity"
+            android:label="@string/title_activity_sign_in_sign_up"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".WelcomeActivity"
+            android:label="@string/title_activity_welcome"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+    </application>
+
+</manifest>
