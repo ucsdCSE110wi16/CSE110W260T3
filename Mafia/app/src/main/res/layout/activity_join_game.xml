@@ -9,21 +9,41 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="cse110winter2015group3.mafia.JoinGameActivity">
 
-    <Button
-        android:id="@+id/EnterPasscode"
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text = "Enter Passcode"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_height="76dp"
+        android:text="Please Enter Game Entry Code"
+        android:id="@+id/textView2"
+        android:layout_gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
-        android:id="@+id/userinputtext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/userInput"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/textView2"
+        android:inputType="text"/>
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text = ""
-        android:editable="true"
-        android:layout_above="@+id/EnterPasscode"
-        android:layout_centerHorizontal="true" />
+        android:text="Submit"
+        android:id="@+id/button3"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/userInput"
+        android:onClick="submitCode" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/imageView"/>
+
+    <GridView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/gridView"
+        android:numColumns="3"
+        android:choiceMode="multipleChoice" />
 
 </RelativeLayout>

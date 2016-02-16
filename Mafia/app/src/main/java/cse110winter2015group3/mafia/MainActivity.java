@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (currentUser != null) {
 
-                Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
+                Intent intent = new Intent(MainActivity.this, GameHomePage.class);
                 startActivity(intent);
                 finish();
             } else {
@@ -68,36 +68,6 @@ public class MainActivity extends AppCompatActivity {
     //                 currently active, the player will join that game servers lobby and wait until
     //                 the owner of the game starts the game.
 
-    public void onStartGameButtonClick() {
-        startActivity(new Intent(getApplicationContext(), StartGameActivity.class));
-    }
 
-    public void onJoinGameButtonClick(View v) {
-        startActivity(new Intent(getApplicationContext(), JoinGameActivity.class));
-
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 }

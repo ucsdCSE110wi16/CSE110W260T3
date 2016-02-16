@@ -13,11 +13,14 @@ import android.widget.TextView;
 
 public class JoinGameActivity extends AppCompatActivity {
 
+    public String entryCodeInput = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_game);
 
+        /**
         Button showDialog  = (Button) findViewById(R.id.EnterPasscode);
         final TextView userInputText = (TextView) findViewById(R.id.userinputtext);
         showDialog.setOnClickListener(new View.OnClickListener() {
@@ -29,7 +32,7 @@ public class JoinGameActivity extends AppCompatActivity {
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(JoinGameActivity.this);
                 alertBuilder.setView(view);
                 final EditText userInput = (EditText) view.findViewById(R.id.userinputtext);
-                /**
+
                 alertBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -42,12 +45,24 @@ public class JoinGameActivity extends AppCompatActivity {
                         dialog.cancel();
                     }
                 });
-                 */
+
 
             }
         });
 
+        */
 
+    }
 
+    public void submitCode(View v) {
+        EditText editName = (EditText) findViewById(R.id.userInput);
+        editName.setOnKeyListener(null);
+        entryCodeInput = editName.getText().toString();
+        editName.setText("");
+        TextView tView;
+        tView = (TextView)findViewById(R.id.button3);
+        tView.setText("Thank You!");
+        Button button1 = (Button) findViewById(R.id.button3);
+        button1.setClickable(false);
     }
 }
