@@ -1,0 +1,96 @@
+Player roles:
+		Moderator:
+User is either randomly assigned the role of moderator, or chosen by the member who started the game. User is allowed to view the identity of all players. 
+  		Villager:
+User is given the role automatically. This use is only allowed to vote during day phase. 
+		Doctor:
+User is assigned role automatically. During the night phase, user is allowed to choose 1 player whom to save. This player will be immune to any attack from a mafia.
+
+		Cop:
+User is assigned role automatically. During the night phase, use is allowed to guess one player to check if he/she is a mafia. User then is informed whether it is correct.
+
+The vote:
+All alive players all allowed to vote. Each alive player selects one player to hang from the list of alive players on their phones’ screen. If the vote is majority (50% minimum), the accused player get killed. If no one votes during that particular day, no one gets killed and the first voting phase ends.
+The time of voting phase is unlimited.
+End of game:
+Mafia wins: number of members of mafia is greater than civilians.
+Civilian wins: all members of mafia are killed.
+Each player's role is revealed
+
+PROJECT PLAN:
+Homepage/Start Functionalities by WEEK 4
+Night Phase by WEEK 6 (Deadline changed to week 7 after discussion with our customers)
+Day Phase by WEEK 8
+Final Testing by WEEK 10
+
+Title:Home Page
+PRIORITY: 1
+As a user, I want a main page with the options to either start or join a game, so that only one friend in the group needs to start and set it up.
+Est Feb 6. 
+Tasks: Create UI Start Game Button, Create Join Game Button, Create Actions for Button Clicks, Create Graphical Background that is appealing
+
+Title: Select Number of Players
+PRIORITY: 3
+As a user starting a game, I want the ability to customize the number of players, so that I can have the game built to the preferences of the group.
+Est Feb 16
+	Tasks: Upon clicking start game, create method that takes user input for max number of players allowed in the game. 
+
+Title: Get Unique Game Code
+PRIORITY: 2
+As a user starting a game, I want to be given a unique code for the game when it is set up, so that my friends (and not other people) will be able to join it.
+Est Feb 8
+	Tasks: Upon clicking the start game button, write method that will generate 8 letter random game code with digits or alphabet characters. 
+
+Title: Join Game
+PRIORITY: 2
+As a user, I want to be able to join an existing game by entering the code from a separate menu, so that I have a fast and simple means of joining my friends.
+Est Feb 14
+	Tasks: Upon clicking the join game button, user will be prompted to add a game enter code. Method to get that code and compare to start game user’s code before adding to game. 
+
+Title: Moderator Options
+PRIORITY: 4
+As a user starting the game, I want to have the option of acting as player moderator for that game, so that I can manage the timing and flow of voting and discussions.
+Est Feb 17
+	Tasks: Upon starting the game, method to get input from starting user as to whether a moderator should be radnomly assigned or if moderator should be chosen. If user chooses yes, method written to create moderator based on player chosen by user. 
+
+
+
+Title: Random Roles
+PRIORITY: 5
+As a playing user, I want the roles of the players to be random and hidden, except if they share roles, they die, or the game ends, so that we will have to socially interact to guess roles of other players.
+Est Feb 17
+	Tasks:
+
+Title: Chat
+PRIORITY:5
+As a playing user, I want to have access to public as well as private messaging services, so that I can interact with all other players while simultaneously coordinating actions with my team.
+Est Feb 17
+	Tasks:
+
+Title: Mafia Player
+PRIORITY*:5
+As a playing user assigned to the “mafia” role, I want to be able to vote for a player in the game to “kill”, so that the mafia can attempt to win the game by becoming a majority of the remaining players.
+Est Feb 17
+	Tasks: Create Mafia Player Class, create method to kill, other methods associated with mafia class. 
+
+Titel: Doctor Player
+PRIORITY*:5
+As a playing user assigned to the “doctor” role, I want to be able to vote for a player in the game to “save”, so that I can prevent the mafia from achieving their win.
+Est Feb 17
+
+Title: Cop Player
+PRIORITY*:5
+As a playing user assigned to the “cop” role, I want to be able to choose one player to “investigate”, so that I can determine whether the player has a “mafia” role or not.
+Est Feb 17
+
+
+Title: Mafia Player Able to Lynch
+PRIORITY*: 6
+As a playing user assigned the “mafia” role, I want to be able to infiltrate the vote for a player to “lynch”, so that I can attempt to win by tricking non-mafia into eliminating themselves.
+Est Feb 24
+
+Title: Player Eliminated
+PRIORITY: 8
+As a playing user who is eliminated in-game, I want to be able to spectate the rest the game, so that I can follow its progress even though I am no longer able to participate.
+
+
