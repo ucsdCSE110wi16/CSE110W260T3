@@ -3,6 +3,7 @@ package com.example.aneeshnatarajan.mafiaapp;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.TextView;
  */
 public class JoinGame extends Activity{
     public String entryCodeInput = "";
+    public String player_name = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,14 +28,18 @@ public class JoinGame extends Activity{
         editName.setOnKeyListener(null);
         entryCodeInput = editName.getText().toString();
         editName.setText("");
-        TextView tView;
-        tView = (TextView)findViewById(R.id.button3);
-        tView.setText("Thank You!");
-        Button button1 = (Button) findViewById(R.id.button3);
-        button1.setClickable(false);
-
+        EditText name = (EditText) findViewById(R.id.userName);
+        name.setOnClickListener(null);
+        player_name = name.getText().toString();
+        name.setText("");
+        //Intent intent = new Intent(this, EnterGame.class);
+        //intent.putExtra("enteredCode",entryCodeInput);
+        //intent.putExtra("player_name",player_name);
+        //startActivity(intent);
 
     }
+
+
 
 
 }

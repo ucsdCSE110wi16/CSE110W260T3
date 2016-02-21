@@ -19,6 +19,20 @@
         android:layout_gravity="center_horizontal"
         android:inputType="text"/>
 
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="76dp"
+    android:text="Please Enter Your Name"
+    android:id="@+id/textView3"
+    android:layout_gravity="center_horizontal"
+    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/userName"
+        android:layout_gravity="center_horizontal"
+        android:inputType="text"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

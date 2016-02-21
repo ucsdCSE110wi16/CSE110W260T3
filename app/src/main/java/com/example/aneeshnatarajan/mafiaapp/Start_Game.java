@@ -9,7 +9,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.Random;
 
@@ -19,6 +22,7 @@ import java.util.Random;
  */
 public class Start_Game extends AppCompatActivity{
     public String gameCode = "";
+    public int player_count = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +56,13 @@ public class Start_Game extends AppCompatActivity{
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void enterGame(View view) {
+        Intent intent = new Intent(this, Enter_Game.class);
+        //intent.putExtra("randomStartCode",this.gameCode);
+        startActivity(intent);
+    }
+
 
 
 
