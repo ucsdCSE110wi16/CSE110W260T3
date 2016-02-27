@@ -4,10 +4,16 @@ android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+    }
+
 
     defaultConfig {
         applicationId "cse110winter2015group3.mafia"
-        minSdkVersion 8
+        minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
@@ -24,6 +30,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.android.support:design:22.+'
-    compile 'com.parse.bolts:bolts-android:1.+'
-    compile 'com.parse:parse-android:1.+'
+    compile 'com.firebase:firebase-client-android:2.5.0'
+    compile 'com.firebaseui:firebase-ui:0.3.1'
 }

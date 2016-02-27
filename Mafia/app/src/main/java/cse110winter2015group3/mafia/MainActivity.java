@@ -1,73 +1,103 @@
 package cse110winter2015group3.mafia;
 
-//import com.parse.ParseObject;
-
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import com.parse.ParseAnonymousUtils;
-import com.parse.ParseUser;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import com.firebase.client.Firebase;
+import com.firebase.ui.FirebaseListAdapter;
+import com.firebase.ui.auth.core.AuthProviderType;
+import com.firebase.ui.auth.core.FirebaseLoginBaseActivity;
+import com.firebase.ui.auth.core.FirebaseLoginError;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends FirebaseLoginBaseActivity {
+
+    // Connection to our data
+    private Firebase mFirebaseRef;
+    FirebaseListAdapter<ChatMessage> mListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (ParseAnonymousUtils.isLinked(ParseUser.getCurrentUser())) {
+        // allows Firebase client to keep its context
+        Firebase.setAndroidContext(this);
 
-            Intent intent = new Intent(MainActivity.this, SignInSignUpActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            ParseUser currentUser = ParseUser.getCurrentUser();
+        setContentView(R.layout.activity_main);
 
-            if (currentUser != null) {
+        // initialize database
+        mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/");
 
-                Intent intent = new Intent(MainActivity.this, GameHomePage.class);
-                startActivity(intent);
-                finish();
-            } else {
+        final EditText textEdit = (EditText) this.findViewById(R.id.text_edit);
+        Button sendButton = (Button) this.findViewById(R.id.send_button);
 
-                Intent intent = new Intent(MainActivity.this, SignInSignUpActivity.class);
-                startActivity(intent);
-                finish();
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = textEdit.getText().toString();
+                // HARD-CODED FOR NOW AND ALLOWS USER TO LOGIN
+                ChatMessage message = new ChatMessage("User", text);
+                mFirebaseRef.push().setValue(message);
+                textEdit.setText("");
             }
+        });
 
-        }
+        Button loginButton = (Button) this.findViewById(R.id.login);
 
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showFirebaseLoginPrompt();
+            }
+        });
 
-        //setContentView(R.layout.activity_main);
-
-
-        //setContentView(R.layout.activity_main);
-        // [Optional] Power your app with Local Datastore. For more info, go to
-        // https://parse.com/docs/android/guide#local-datastore
-        /**
-
-        Parse.enableLocalDatastore(this);
-
-        Parse.initialize(this);
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
-         */
+        final ListView listView = (ListView) this.findViewById(android.R.id.list);
+        mListAdapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
+                android.R.layout.two_line_list_item, mFirebaseRef) {
+            @Override
+            protected void populateView(View v, ChatMessage model, int position) {
+                ((TextView)v.findViewById(android.R.id.text1)).setText(model.getName());
+                ((TextView)v.findViewById(android.R.id.text2)).setText(model.getText());
+            }
+        };
+        listView.setAdapter(mListAdapter);
     }
 
-    //make a onClickButton for
-    // i) Start Game - pressing button should generate an access code to a server for the user
-    //                 It should automatically copy that code and then prompt the user to send
-    //                 the code to nearby players/friends. Once at least 3 other players have
-    //                 joined the lobby with the user, the user can start the game.
-    // ii) Join Game - The user is already given an access code via text or some other method. He/
-    //                 she should be prompted to enter that code once they click the "Join Game"
-    //                 button. After entering the code, given that it is a correct code that is
-    //                 currently active, the player will join that game servers lobby and wait until
-    //                 the owner of the game starts the game.
+    // Button to jump to homepage
+    public void onGoToButtonClick(View v) {
+        startActivity(new Intent(getApplicationContext(), GameHomePage.class));
+    }
 
+    // LOGIN HELPER
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setEnabledAuthProvider(AuthProviderType.PASSWORD);
+    }
 
+    // EVENT HANDLERS
+    @Override
+    protected Firebase getFirebaseRef() {
+        return mFirebaseRef;
+    }
 
+    @Override
+    protected void onFirebaseLoginProviderError(FirebaseLoginError firebaseLoginError) {
+
+    }
+
+    @Override
+    protected void onFirebaseLoginUserError(FirebaseLoginError firebaseLoginError) {
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mListAdapter.cleanup();
+    }
 }
