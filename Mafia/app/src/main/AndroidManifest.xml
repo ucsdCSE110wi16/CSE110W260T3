@@ -29,6 +29,10 @@
             android:name=".GameHomePage"
             android:label="@string/title_activity_game_home_page"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".EnterGame"
+            android:label="enter_game"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

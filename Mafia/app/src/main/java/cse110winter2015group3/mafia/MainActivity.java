@@ -30,8 +30,7 @@ public class MainActivity extends FirebaseLoginBaseActivity {
         setContentView(R.layout.activity_main);
 
         // initialize database
-        mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/");
-
+        mFirebaseRef = new Firebase("https://radiant-torch-4018.firebaseio.com");
         final EditText textEdit = (EditText) this.findViewById(R.id.text_edit);
         Button sendButton = (Button) this.findViewById(R.id.send_button);
 

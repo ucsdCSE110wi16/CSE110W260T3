@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:onClick="goEnterGame">
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,6 +19,14 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/textView4"
         android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="62dp"
+        android:text="Enter Game"
+        android:id="@+id/button4"
+        android:layout_gravity="center_horizontal"
+        android:onClick="goEnterGame"/>
 
     <ImageView
         android:layout_width="wrap_content"

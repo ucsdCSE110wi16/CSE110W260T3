@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.firebase.client.Firebase;
+
 import java.util.Random;
 
 
@@ -18,10 +20,15 @@ import java.util.Random;
  * Created by aneeshnatarajan on 2/6/16.
  */
 public class StartGameActivity extends AppCompatActivity{
+    private Firebase mFirebaseRef;
+
     public String gameCode = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
+        //initialize Firebase database
+        mFirebaseRef = new Firebase("https://radiant-torch-4018.firebaseio.com");
         setContentView(R.layout.activity_start_game);
         final String alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         final int length = alphabet.length();
@@ -32,7 +39,12 @@ public class StartGameActivity extends AppCompatActivity{
             code.append(alphabet.charAt(index));
         }
         String output = "Entry Game Code is: " + code;
-        gameCode = output;
+        gameCode = gameCode + code;
+        Firebase codeRef = mFirebaseRef.child("gameCode");
+        codeRef.setValue(gameCode);
+
+
+
 
         TextView txtView;
         txtView = (TextView)findViewById(R.id.textView4);
@@ -51,6 +63,11 @@ public class StartGameActivity extends AppCompatActivity{
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void goEnterGame(View v){
+        startActivity(new Intent(getApplicationContext(),EnterGame.class));
+
     }
 
 
