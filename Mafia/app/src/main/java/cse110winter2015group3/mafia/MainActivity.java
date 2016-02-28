@@ -7,7 +7,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 import com.firebase.ui.FirebaseListAdapter;
 import com.firebase.ui.auth.core.AuthProviderType;
 import com.firebase.ui.auth.core.FirebaseLoginBaseActivity;
@@ -17,8 +20,12 @@ import com.firebase.ui.auth.core.FirebaseLoginError;
 public class MainActivity extends FirebaseLoginBaseActivity {
 
     // Connection to our data
-    private Firebase mFirebaseRef;
+    public static Firebase mFirebaseRef;
     FirebaseListAdapter<ChatMessage> mListAdapter;
+    public static boolean login = false;
+    AuthData tempHold;
+    EditText userEmail;
+    EditText userPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +37,8 @@ public class MainActivity extends FirebaseLoginBaseActivity {
         setContentView(R.layout.activity_main);
 
         // initialize database
-        mFirebaseRef = new Firebase("https://radiant-torch-4018.firebaseio.com");
+        mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/");
+
         final EditText textEdit = (EditText) this.findViewById(R.id.text_edit);
         Button sendButton = (Button) this.findViewById(R.id.send_button);
 
@@ -39,9 +47,35 @@ public class MainActivity extends FirebaseLoginBaseActivity {
             public void onClick(View v) {
                 String text = textEdit.getText().toString();
                 // HARD-CODED FOR NOW AND ALLOWS USER TO LOGIN
-                ChatMessage message = new ChatMessage("User", text);
-                mFirebaseRef.push().setValue(message);
-                textEdit.setText("");
+
+                if (UserLogin.userEmail != null) {
+                    userEmail = UserLogin.userEmail;
+                    userPassword = UserLogin.userPassword;
+                    MainActivity.mFirebaseRef.authWithPassword(userEmail.getText().toString(),
+                            userPassword.getText().toString(), new Firebase.AuthResultHandler() {
+                                @Override
+                                public void onAuthenticated(AuthData authData) {
+                                    // Store this authData in a global temp storage so that we can access the
+                                    // current users information (USER UID, EMAIL, PASSWORD)
+                                    tempHold = authData;
+                                }
+
+                                @Override
+                                public void onAuthenticationError(FirebaseError firebaseError) {
+                                    // there was an error
+                                }
+                            });
+                    login = true;
+                }
+                if (login == true && tempHold != null) {
+                    ChatMessage message = new ChatMessage(tempHold.getProviderData().get("email").toString(), text);
+                    mFirebaseRef.push().setValue(message);
+                    textEdit.setText("");
+                } else { // Else false, the user is not logged in
+                    ChatMessage message = new ChatMessage("Anonymous User", text);
+                    mFirebaseRef.push().setValue(message);
+                    textEdit.setText("");
+                }
             }
         });
 
@@ -50,9 +84,13 @@ public class MainActivity extends FirebaseLoginBaseActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showFirebaseLoginPrompt();
+                //showFirebaseLoginPrompt();
+                login = true;
+                startActivity(new Intent(getApplicationContext(), UserLogin.class));
             }
         });
+
+;
 
         final ListView listView = (ListView) this.findViewById(android.R.id.list);
         mListAdapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
