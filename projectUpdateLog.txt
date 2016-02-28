@@ -1,0 +1,11 @@
+Date: 2/28/2016 2AM
+
+STAN:
+
+I fixed a problem with firebase where authentication was throwing errors and we were unable to pull the users information from the database (UID, email, pw). I also changed up our GUI / logic so that it is smoother:
+	- Running the app will now bring you to the LOGIN page (Main Activity)
+	- After successfully logging in, you can now enter the Chat Lobby where
+	  you can:
+		1) Chat with your specific UID/email displayed
+		2) Go to the Game Homepage
+		3) Logout

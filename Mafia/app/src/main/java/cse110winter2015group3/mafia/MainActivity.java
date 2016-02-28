@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
@@ -20,12 +21,11 @@ import com.firebase.ui.auth.core.FirebaseLoginError;
 public class MainActivity extends FirebaseLoginBaseActivity {
 
     // Connection to our data
-    public static Firebase mFirebaseRef;
-    FirebaseListAdapter<ChatMessage> mListAdapter;
-    public static boolean login = false;
-    AuthData tempHold;
-    EditText userEmail;
-    EditText userPassword;
+    public static Firebase firebase;
+    public static AuthData globalAuth;
+    Button loginButton;
+    String emailtxt;
+    String passwordtxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,89 +37,72 @@ public class MainActivity extends FirebaseLoginBaseActivity {
         setContentView(R.layout.activity_main);
 
         // initialize database
-        mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/");
+        firebase = new Firebase("https://shining-inferno-5525.firebaseio.com");
+        if (firebase.getAuth() == null) {
+            // Prompt user to log in
 
-        final EditText textEdit = (EditText) this.findViewById(R.id.text_edit);
-        Button sendButton = (Button) this.findViewById(R.id.send_button);
+            final EditText userEmail = (EditText) findViewById(R.id.emailAddress);
+            final EditText userPassword = (EditText) findViewById(R.id.password);
+            loginButton = (Button) findViewById(R.id.login);
 
-        sendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String text = textEdit.getText().toString();
-                // HARD-CODED FOR NOW AND ALLOWS USER TO LOGIN
+            Toast.makeText(getApplicationContext(), "EMAIL: " + userEmail.getText().toString(), Toast.LENGTH_SHORT).show();
 
-                if (UserLogin.userEmail != null) {
-                    userEmail = UserLogin.userEmail;
-                    userPassword = UserLogin.userPassword;
-                    MainActivity.mFirebaseRef.authWithPassword(userEmail.getText().toString(),
-                            userPassword.getText().toString(), new Firebase.AuthResultHandler() {
-                                @Override
-                                public void onAuthenticated(AuthData authData) {
-                                    // Store this authData in a global temp storage so that we can access the
-                                    // current users information (USER UID, EMAIL, PASSWORD)
-                                    tempHold = authData;
-                                }
 
-                                @Override
-                                public void onAuthenticationError(FirebaseError firebaseError) {
-                                    // there was an error
-                                }
-                            });
-                    login = true;
+            loginButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    emailtxt = userEmail.getText().toString();
+                    passwordtxt = userPassword.getText().toString();
+                    firebase.authWithPassword(emailtxt, passwordtxt, new Firebase.AuthResultHandler() {
+                        @Override
+                        public void onAuthenticated(AuthData authData) {
+                            globalAuth = authData;
+                        }
+
+                        @Override
+                        public void onAuthenticationError(FirebaseError firebaseError) {
+
+                            switch (firebaseError.getCode()) {
+                                case FirebaseError.USER_DOES_NOT_EXIST:
+                                    Toast.makeText(getApplicationContext(),
+                                            "User doesn't exist!", Toast.LENGTH_SHORT).show();
+                                    break;
+                                case FirebaseError.INVALID_PASSWORD:
+                                    Toast.makeText(getApplicationContext(),
+                                            "Invalid password!", Toast.LENGTH_SHORT).show();
+                                    break;
+                                default:
+                                    Toast.makeText(getApplicationContext(),
+                                            "Error authenticating (default)!",
+                                            Toast.LENGTH_SHORT).show();
+                                    break;
+                            }
+                        }
+                    });
+
                 }
-                if (login == true && tempHold != null) {
-                    ChatMessage message = new ChatMessage(tempHold.getProviderData().get("email").toString(), text);
-                    mFirebaseRef.push().setValue(message);
-                    textEdit.setText("");
-                } else { // Else false, the user is not logged in
-                    ChatMessage message = new ChatMessage("Anonymous User", text);
-                    mFirebaseRef.push().setValue(message);
-                    textEdit.setText("");
-                }
-            }
-        });
+            });
 
-        Button loginButton = (Button) this.findViewById(R.id.login);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //showFirebaseLoginPrompt();
-                login = true;
-                startActivity(new Intent(getApplicationContext(), UserLogin.class));
-            }
-        });
+            Intent intent = new Intent(this, ChatApp.class);
+            startActivity(intent);
 
-;
-
-        final ListView listView = (ListView) this.findViewById(android.R.id.list);
-        mListAdapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
-                android.R.layout.two_line_list_item, mFirebaseRef) {
-            @Override
-            protected void populateView(View v, ChatMessage model, int position) {
-                ((TextView)v.findViewById(android.R.id.text1)).setText(model.getName());
-                ((TextView)v.findViewById(android.R.id.text2)).setText(model.getText());
-            }
-        };
-        listView.setAdapter(mListAdapter);
+        } else {
+            // User is now logged in, proceed to next Activity (should be chat)
+            Intent intent = new Intent(this, ChatApp.class);
+            startActivity(intent);
+        }
     }
 
-    // Button to jump to homepage
-    public void onGoToButtonClick(View v) {
-        startActivity(new Intent(getApplicationContext(), GameHomePage.class));
-    }
-
-    // LOGIN HELPER
     @Override
     protected void onStart() {
         super.onStart();
         setEnabledAuthProvider(AuthProviderType.PASSWORD);
     }
 
-    // EVENT HANDLERS
     @Override
     protected Firebase getFirebaseRef() {
-        return mFirebaseRef;
+        return firebase;
     }
 
     @Override
@@ -132,9 +115,13 @@ public class MainActivity extends FirebaseLoginBaseActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mListAdapter.cleanup();
+    public void onLogin(View v) {
+        // User has pressed log-in, goto ChatApp.java
+        // We will make ChatApp accessible through the game. Simply have buttons on each Activity
+        // that bring up ChatApp.class, and have a button on ChatApp.class that calls finish() to
+        // exit the current Activity and go-back to the previous one!
+        Intent intent = new Intent(this, ChatApp.class);
+        startActivity(intent);
     }
+
 }

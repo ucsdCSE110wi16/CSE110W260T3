@@ -27,10 +27,7 @@
             android:name=".GameHomePage"
             android:label="@string/title_activity_game_home_page"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".UserLogin"
-            android:label="@string/title_activity_user_login"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ChatApp"></activity>
     </application>
 
 </manifest>
