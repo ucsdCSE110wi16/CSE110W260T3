@@ -16,6 +16,8 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 public class JoinGameActivity extends AppCompatActivity {
     private Firebase mFirebaseRef;
 
@@ -46,6 +48,16 @@ public class JoinGameActivity extends AppCompatActivity {
                 String code = dataSnapshot.getValue().toString();
                 if (entryCodeInput.equals(code)){
                     startActivity(new Intent(getApplicationContext(),EnterGame.class));
+                    //need to create player object and store in the DB
+                }
+                else{
+                    TextView tView1;
+                    tView1 = (TextView)findViewById(R.id.button3);
+                    tView1.setText("Try Again");
+                    Button button2 = (Button) findViewById(R.id.button3);
+                    button2.setClickable(true);
+
+
                 }
             }
 

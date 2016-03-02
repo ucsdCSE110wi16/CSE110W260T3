@@ -28,6 +28,7 @@
             android:label="@string/title_activity_game_home_page"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ChatApp"></activity>
+        <activity android:name=".EnterGame"></activity>
     </application>
 
 </manifest>
