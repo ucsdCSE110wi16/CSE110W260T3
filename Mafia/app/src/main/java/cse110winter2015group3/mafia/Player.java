@@ -11,12 +11,32 @@ public class Player {
     boolean isDead;
     boolean isArrested;
 
-    public Player() {
+    public Player() {}
+
+    public void setPlayerStatus() {
         canVote = true;
         canDie = true;
         canMessage = true;
         isDead = false;
         isArrested = false;
+    }
+
+    public boolean getCanVote(){
+        return canVote;
+    }
+
+    public boolean getCanDie(){
+        return canDie;
+    }
+
+    public boolean getCanMessage(){
+        return canMessage;
+    }
+    public boolean getIsDead(){
+        return isDead;
+    }
+    public boolean getIsArrested(){
+        return isArrested;
     }
 
     public void disablePlayer() {

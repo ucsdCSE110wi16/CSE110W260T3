@@ -6,10 +6,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
+import java.util.Map;
 import java.util.Random;
 
 public class StartGameActivity extends AppCompatActivity {
@@ -53,7 +60,13 @@ public class StartGameActivity extends AppCompatActivity {
     }
 
     public void goEnterGame(View v){
-        startActivity(new Intent(this,EnterGame.class));
+        Player player = new Player();
+        player.setPlayerStatus();
+        Firebase playerRef = mFirebaseRef.child("player/player1");
+        playerRef.setValue(player);
+        Firebase playerCountRef = mFirebaseRef.child("playerCount");
+        playerCountRef.setValue(1);
+        startActivity(new Intent(this, EnterGame.class));
     }
 
 
