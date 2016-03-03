@@ -15,6 +15,16 @@ public class Mafia extends Player {
         canKill = true;
     }
 
+    public Mafia(String uid) {
+        userUID = uid;
+        //canDie = true;
+        canMessage = true;
+        canVote = true;
+        canKill = true;
+    }
+
+
+
     public void killPlayer() {
         // IMPLEMENT THIS TO "KILL" OTHER PLAYER
         // THAT PLAYER SHOULD BE "DISABLED"

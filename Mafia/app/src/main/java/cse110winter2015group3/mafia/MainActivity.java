@@ -17,6 +17,12 @@ import com.firebase.ui.auth.core.AuthProviderType;
 import com.firebase.ui.auth.core.FirebaseLoginBaseActivity;
 import com.firebase.ui.auth.core.FirebaseLoginError;
 
+/**
+ * LOGIN FOR STANS FIREBASE SERVER: SHINING-INFERNO
+ * ACCT #1: stan_deng@yahoo.com , pw= 1111
+ * ACCT #2: aneesh@yahoo.com, pw = 12345
+ *
+ */
 
 public class MainActivity extends FirebaseLoginBaseActivity {
 
@@ -38,6 +44,9 @@ public class MainActivity extends FirebaseLoginBaseActivity {
 
         // initialize database
         firebase = new Firebase("https://shining-inferno-5525.firebaseio.com");
+
+        // This is here temporarily so that each time the user logs in he/she is prompted to login
+        //firebase.unauth();
         if (firebase.getAuth() == null) {
             // Prompt user to log in
 
@@ -46,7 +55,6 @@ public class MainActivity extends FirebaseLoginBaseActivity {
             loginButton = (Button) findViewById(R.id.login);
 
             Toast.makeText(getApplicationContext(), "EMAIL: " + userEmail.getText().toString(), Toast.LENGTH_SHORT).show();
-
 
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -79,18 +87,13 @@ public class MainActivity extends FirebaseLoginBaseActivity {
                             }
                         }
                     });
-
+                    startActivity(new Intent(getApplicationContext(), ChatApp.class));
                 }
             });
 
-
-            Intent intent = new Intent(this, ChatApp.class);
-            startActivity(intent);
-
         } else {
             // User is now logged in, proceed to next Activity (should be chat)
-            Intent intent = new Intent(this, ChatApp.class);
-            startActivity(intent);
+            startActivity(new Intent(getApplicationContext(), ChatApp.class));
         }
     }
 

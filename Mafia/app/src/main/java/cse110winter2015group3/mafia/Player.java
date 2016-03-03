@@ -5,6 +5,7 @@ package cse110winter2015group3.mafia;
  */
 public class Player {
 
+    String userUID; // unique ID used in this case will be the uses email
     boolean canVote;
     boolean canDie;
     boolean canMessage;
@@ -12,6 +13,15 @@ public class Player {
     boolean isArrested;
 
     public Player() {
+        canVote = true;
+        canDie = true;
+        canMessage = true;
+        isDead = false;
+        isArrested = false;
+    }
+
+    public Player(String user) {
+        userUID = user;
         canVote = true;
         canDie = true;
         canMessage = true;

@@ -66,8 +66,10 @@ public class ChatApp extends AppCompatActivity {
 
     public void onLogoutClick(View v) {
         firebase.unauth();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        //finish();
+        if (firebase.getAuth() == null) {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        }
     }
 
 }

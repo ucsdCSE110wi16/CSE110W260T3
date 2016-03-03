@@ -11,21 +11,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 public class JoinGameActivity extends AppCompatActivity {
-    private Firebase mFirebaseRef;
 
+    private Firebase mFirebaseRef;
     public String entryCodeInput = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_game);
-
     }
 
     public void submitCode(View v) {
@@ -38,7 +38,9 @@ public class JoinGameActivity extends AppCompatActivity {
         tView.setText("Thank You!");
         Button button1 = (Button) findViewById(R.id.button3);
         button1.setClickable(false);
-        mFirebaseRef = new Firebase("https://radiant-torch-4018.firebaseio.com");
+        //mFirebaseRef = new Firebase("https://radiant-torch-4018.firebaseio.com");
+        mFirebaseRef = MainActivity.firebase;
+
         Firebase codeRef = mFirebaseRef.child("gameCode");
         codeRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -46,6 +48,14 @@ public class JoinGameActivity extends AppCompatActivity {
                 String code = dataSnapshot.getValue().toString();
                 if (entryCodeInput.equals(code)){
                     startActivity(new Intent(getApplicationContext(),EnterGame.class));
+                    //need to create player object and store in the DB
+                }
+                else{
+                    TextView tView1;
+                    tView1 = (TextView)findViewById(R.id.button3);
+                    tView1.setText("Try Again");
+                    Button button2 = (Button) findViewById(R.id.button3);
+                    button2.setClickable(true);
                 }
             }
 
@@ -54,6 +64,5 @@ public class JoinGameActivity extends AppCompatActivity {
 
             }
         });
-
     }
 }
