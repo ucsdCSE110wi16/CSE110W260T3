@@ -29,6 +29,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ChatApp"></activity>
         <activity android:name=".EnterGame"></activity>
+        <activity android:name=".AssignRoles"></activity>
     </application>
 
 </manifest>

@@ -26,5 +26,7 @@
         android:id="@+id/ready_to_start"
         android:layout_gravity="center_horizontal"
         android:background="#f31212"
-        android:textColor="#f8f5f5" />
+        android:textColor="#f8f5f5"
+        android:clickable="false"
+        android:onClick="goAssignRoles" />
 </LinearLayout>

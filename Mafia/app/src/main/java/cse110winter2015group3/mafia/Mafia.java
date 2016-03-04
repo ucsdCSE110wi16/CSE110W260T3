@@ -15,7 +15,7 @@ public class Mafia extends Player {
         canKill = true;
     }
 
-    public void killPlayer() {
+    public void killPlayer(Player player) {
         // IMPLEMENT THIS TO "KILL" OTHER PLAYER
         // THAT PLAYER SHOULD BE "DISABLED"
     }
