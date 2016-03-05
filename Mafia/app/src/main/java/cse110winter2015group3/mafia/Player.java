@@ -20,6 +20,14 @@ public class Player {
         isArrested = false;
     }
 
+    public void setPlayerStatus() {
+        canVote = true;
+        canDie = true;
+        canMessage = true;
+        isDead = false;
+        isArrested = false;
+    }
+
     public Player(String user) {
         userUID = user;
         canVote = true;

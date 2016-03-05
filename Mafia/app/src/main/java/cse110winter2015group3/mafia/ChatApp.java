@@ -50,6 +50,25 @@ public class ChatApp extends AppCompatActivity {
         };
         listView.setAdapter(mListAdapter);
 
+        Button toHomePage = (Button) findViewById(R.id.GoToHomepage);
+        toHomePage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), GameHomePage.class));
+            }
+        });
+
+        Button toLogOut = (Button) findViewById(R.id.logout);
+        toLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firebase.unauth();
+                //finish();
+                if (firebase.getAuth() == null) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                }
+            }
+        });
     }
 
     @Override
@@ -57,19 +76,4 @@ public class ChatApp extends AppCompatActivity {
         super.onDestroy();
         mListAdapter.cleanup();
     }
-
-    public void onGoToButtonClick(View v) {
-        // GOTO GAME HOMEPAGE
-        Intent intent = new Intent(this, GameHomePage.class);
-        startActivity(intent);
-    }
-
-    public void onLogoutClick(View v) {
-        firebase.unauth();
-        //finish();
-        if (firebase.getAuth() == null) {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        }
-    }
-
 }

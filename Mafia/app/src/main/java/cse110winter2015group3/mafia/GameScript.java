@@ -36,10 +36,6 @@ public class GameScript extends AppCompatActivity {
         setContentView(R.layout.activity_game_script);
         generateRoles();
 
-        // HOW DO WE GENERATE THE CORRECT LAYOUT PAGE FOR THE CURRENT USERS ROLE?
-        // IE IF THE THEY ARE MAFIA NIGHT PHASE WORKS FOR THEM BUT DAYPHASE GIVES THEM A PAUSE
-        // PAGE UNTIL THE NEXT NIGHTPHASE
-
 
         startActivity(new Intent(getApplicationContext(), NightPhase.class));
             // then upon voting, call finish()
@@ -69,6 +65,5 @@ public class GameScript extends AppCompatActivity {
         Toast.makeText(GameScript.this,
                 "Generated Roles: User = Mafia, 4 AI's (Cop/Doctor/Moderator/Civilian)",
                 Toast.LENGTH_SHORT).show();
-
     }
 }

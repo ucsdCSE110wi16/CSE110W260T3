@@ -31,7 +31,8 @@
         <activity android:name=".EnterGame" />
         <activity android:name=".GameScript" />
         <activity android:name=".NightPhase" />
-        <activity android:name=".DayPhase"></activity>
+        <activity android:name=".DayPhase" />
+        <activity android:name=".AssignRoles"></activity>
     </application>
 
 </manifest>

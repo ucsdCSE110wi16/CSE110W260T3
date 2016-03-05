@@ -30,6 +30,7 @@ public class MainActivity extends FirebaseLoginBaseActivity {
     public static Firebase firebase;
     public static AuthData globalAuth;
     Button loginButton;
+    Button signupButton;
     String emailtxt;
     String passwordtxt;
 
@@ -40,23 +41,23 @@ public class MainActivity extends FirebaseLoginBaseActivity {
         // allows Firebase client to keep its context
         Firebase.setAndroidContext(this);
 
-        setContentView(R.layout.activity_main);
-
         // initialize database
         firebase = new Firebase("https://shining-inferno-5525.firebaseio.com");
 
-        // This is here temporarily so that each time the user logs in he/she is prompted to login
-        //firebase.unauth();
-        if (firebase.getAuth() == null) {
-            // Prompt user to log in
+        //Delete entries from firebase. Setting a location value to null == removing data from db
+        firebase.removeValue();
+        firebase.unauth();
 
-            final EditText userEmail = (EditText) findViewById(R.id.emailAddress);
-            final EditText userPassword = (EditText) findViewById(R.id.password);
-            loginButton = (Button) findViewById(R.id.login);
+        setContentView(R.layout.activity_main);
 
-            Toast.makeText(getApplicationContext(), "EMAIL: " + userEmail.getText().toString(), Toast.LENGTH_SHORT).show();
+        // Prompt user to log in
 
-            loginButton.setOnClickListener(new View.OnClickListener() {
+        final EditText userEmail = (EditText) findViewById(R.id.emailAddress);
+        final EditText userPassword = (EditText) findViewById(R.id.password);
+        loginButton = (Button) findViewById(R.id.login);
+        signupButton = (Button) findViewById(R.id.signup);
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     emailtxt = userEmail.getText().toString();
@@ -64,7 +65,9 @@ public class MainActivity extends FirebaseLoginBaseActivity {
                     firebase.authWithPassword(emailtxt, passwordtxt, new Firebase.AuthResultHandler() {
                         @Override
                         public void onAuthenticated(AuthData authData) {
+
                             globalAuth = authData;
+                            startActivity(new Intent(getApplicationContext(), ChatApp.class));
                         }
 
                         @Override
@@ -87,14 +90,35 @@ public class MainActivity extends FirebaseLoginBaseActivity {
                             }
                         }
                     });
-                    startActivity(new Intent(getApplicationContext(), ChatApp.class));
                 }
             });
 
-        } else {
+        signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emailtxt = userEmail.getText().toString();
+                passwordtxt = userPassword.getText().toString();
+                firebase.createUser(emailtxt, passwordtxt, new Firebase.ResultHandler() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(getApplicationContext(),
+                                "Successfully created account! Please login.",
+                                Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onError(FirebaseError firebaseError) {
+                        Toast.makeText(getApplicationContext(),
+                                "This email is already being used!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        //} else {
             // User is now logged in, proceed to next Activity (should be chat)
-            startActivity(new Intent(getApplicationContext(), ChatApp.class));
-        }
+           // startActivity(new Intent(getApplicationContext(), ChatApp.class));
+       // }
     }
 
     @Override
@@ -126,5 +150,4 @@ public class MainActivity extends FirebaseLoginBaseActivity {
         Intent intent = new Intent(this, ChatApp.class);
         startActivity(intent);
     }
-
 }
