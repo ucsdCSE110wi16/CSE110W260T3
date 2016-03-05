@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/moderator"
+    android:background="@drawable/gun1"
     tools:context="cse110winter2015group3.mafia.NightPhase">
 
 
@@ -21,46 +21,109 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Cop check:"
-        android:id="@+id/cop_check"
-        android:layout_below="@+id/civilianText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Done"
+        android:text="Answer the cop"
         android:id="@+id/vote_done"
         android:tag="Done"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:background="#ff0000" />
+        android:background="#ff0000"
+        android:layout_below="@+id/checkBox"
+        android:layout_alignLeft="@+id/button10"
+        android:layout_alignStart="@+id/button10" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generate story"
+        android:id="@+id/button5"
+        android:layout_alignRight="@+id/civilianText"
+        android:layout_alignEnd="@+id/civilianText"
+        android:layout_below="@+id/civilianText" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Night Phase"
+        android:id="@+id/button6"
+        android:layout_below="@+id/button5"
+        android:layout_alignRight="@+id/button5"
+        android:layout_alignEnd="@+id/button5" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Day Phase"
+        android:id="@+id/button7"
+        android:layout_below="@+id/vote_done"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Call Mafia to Kill"
+        android:id="@+id/button8"
+        android:layout_below="@+id/button5"
+        android:layout_toRightOf="@+id/button5"
+        android:layout_toEndOf="@+id/button5" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Call doc to save"
+        android:id="@+id/button9"
+        android:layout_below="@+id/button8"
+        android:layout_alignLeft="@+id/button8"
+        android:layout_alignStart="@+id/button8" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Call cop to guess"
+        android:id="@+id/button10"
+        android:layout_below="@+id/button9"
+        android:layout_alignLeft="@+id/button9"
+        android:layout_alignStart="@+id/button9" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check if cop guess correct"
+        android:id="@+id/checkBox"
+        android:layout_below="@+id/button10"
+        android:layout_alignLeft="@+id/button10" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="person name"
-        android:id="@+id/person_checked"
-        android:layout_below="@+id/cop_check"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/textView"
+        android:layout_alignBottom="@+id/button8"
+        android:layout_toRightOf="@+id/button8"
+        android:layout_toEndOf="@+id/button8" />
 
-    <CheckBox
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="check if it is correct"
-        android:id="@+id/checkBox"
-        android:layout_alignBaseline="@+id/person_checked"
-        android:layout_alignBottom="@+id/person_checked"
-        android:layout_centerHorizontal="true" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="person name"
+        android:id="@+id/textView5"
+        android:layout_above="@+id/button10"
+        android:layout_toRightOf="@+id/button10"
+        android:layout_toEndOf="@+id/button10" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="person name"
+        android:id="@+id/textView6"
+        android:layout_alignBottom="@+id/button10"
+        android:layout_toRightOf="@+id/button10"
+        android:layout_toEndOf="@+id/button10" />
 
 </RelativeLayout>
