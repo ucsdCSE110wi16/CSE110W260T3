@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/gun2"
+    android:background="@drawable/moderator"
     tools:context="cse110winter2015group3.mafia.NightPhase">
 
 
@@ -15,46 +15,52 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Night Phase"
+        android:text="Moterator"
         android:id="@+id/civilianText"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Vote to kill a Player"
-        android:id="@+id/textVote"
+        android:text="Cop check:"
+        android:id="@+id/cop_check"
         android:layout_below="@+id/civilianText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:id="@+id/vote_done"
+        android:tag="Done"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#ff0000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="person name"
+        android:id="@+id/person_checked"
+        android:layout_below="@+id/cop_check"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="check if it is correct"
+        android:id="@+id/checkBox"
+        android:layout_alignBaseline="@+id/person_checked"
+        android:layout_alignBottom="@+id/person_checked"
         android:layout_centerHorizontal="true" />
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Player 2"
-        android:id="@+id/radioButton"
-        android:layout_below="@+id/civilianText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="51dp"
-        android:onClick="onClickRadioButton1"/>
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Player3"
-        android:id="@+id/radioButton2"
-        android:layout_below="@+id/radioButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"
-        android:onClick="onClickRadioButton2"/>
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Player 3"
-        android:id="@+id/radioButton3"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="onClickRadioButton3"/>
 </RelativeLayout>

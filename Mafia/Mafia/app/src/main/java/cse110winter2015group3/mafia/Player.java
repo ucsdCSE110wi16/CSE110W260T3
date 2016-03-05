@@ -11,7 +11,6 @@ public class Player {
     boolean canMessage;
     boolean isDead;
     boolean isArrested;
-    String player_name;
 
     public Player() {
         canVote = true;
@@ -19,7 +18,6 @@ public class Player {
         canMessage = true;
         isDead = false;
         isArrested = false;
-        player_name = "anonymous";
     }
 
     public Player(String user) {
@@ -29,7 +27,6 @@ public class Player {
         canMessage = true;
         isDead = false;
         isArrested = false;
-        player_name = user;
     }
 
     public void disablePlayer() {
@@ -54,7 +51,10 @@ public class Player {
             // FX LINKING PLAYER TO MSGBOARD AND VICE VERSA
         }
     }
-    public String getName(){
-        return player_name;
+    public String getUserUID(){
+        return userUID;
+    }
+    public void setUserUID(String name){
+        userUID = name;
     }
 }

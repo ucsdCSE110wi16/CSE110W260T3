@@ -18,7 +18,6 @@ public class UserLogin extends AppCompatActivity {
     public static EditText userPassword;
     Button enterButton;
     public static AuthData tempAuth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

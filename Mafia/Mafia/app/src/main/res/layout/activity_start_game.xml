@@ -13,7 +13,7 @@
         android:id="@+id/textView3"
         android:layout_gravity="center_horizontal"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:background="#7bf3e3"
+        android:background="#ff0011"
         android:textColor="#ffffff" />
 
     <TextView
@@ -34,7 +34,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@drawable/startgame_bg"
+        android:background="@drawable/murder"
         android:id="@+id/imageView"/>
 
     <GridView

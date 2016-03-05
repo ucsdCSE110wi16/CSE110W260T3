@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,8 +24,10 @@ import java.util.Random;
  */
 public class EnterGame extends AppCompatActivity {
     // initialize the fireBase
-    private Firebase mFirebaseRef= new Firebase("https://radiant-torch-4018.firebaseio.com");
-    ;
+    //private Firebase mFirebaseRef= new Firebase("https://radiant-torch-4018.firebaseio.com");
+/*    private Firebase mFirebaseRef= new Firebase("https://dark-night.firebaseio.com");
+
+    EditText mEdit;
     private ListView lv;
     public String playerName = "";
     // Instantiating an array list
@@ -34,29 +37,35 @@ public class EnterGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_game);
         Firebase.setAndroidContext(this);
+        mEdit = (EditText)findViewById(R.id.enter_name);
+        Firebase ref = mFirebaseRef.child("player").child(mEdit.getText().toString());
         // Get a reference to our posts
         mFirebaseRef.addChildEventListener(new ChildEventListener() {
             // Retrieve new posts as they are added to the database
             @Override
             public void onChildAdded(DataSnapshot snapshot, String previousChildKey) {
                 Player newPlayer = snapshot.getValue(Player.class);
-                playerName = newPlayer.getName();
+                playerName = newPlayer.getUserUID(); //UserUID is player
                 playerList.add(playerName);
                 // fresh list view when player is added
                 lv.invalidateViews();
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
 
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
 
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
 
             @Override
-            public void onCancelled(FirebaseError firebaseError) {}
+            public void onCancelled(FirebaseError firebaseError) {
+            }
             //... ChildEventListener also defines onChildChanged, onChildRemoved,
             //    onChildMoved and onCanceled, covered in later sections.
         });
@@ -64,5 +73,5 @@ public class EnterGame extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, android.R.id.text1, playerList);
         lv.setAdapter(adapter);
 
-    }
+    }*/
 }
