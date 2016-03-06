@@ -7,10 +7,26 @@ public class Doctor extends Player {
     boolean canHeal;
 
     public Doctor() {
+
+    }
+
+    public void initializeDoctorPlayer(){
         canHeal = true;
         canMessage = true;
         canVote = true;
         canDie = true;
+    }
+    public boolean getCanHeal(){
+        return canHeal;
+    }
+    public boolean getCanMessage(){
+        return canMessage;
+    }
+    public boolean getCanVote(){
+        return canVote;
+    }
+    public boolean getCanDie(){
+        return canDie;
     }
 
     public void healPlayer() {

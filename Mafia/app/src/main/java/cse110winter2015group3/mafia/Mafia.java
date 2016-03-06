@@ -9,23 +9,24 @@ public class Mafia extends Player {
     boolean canKill;
 
     public Mafia() {
-        //canDie = true;
+    }
+    public void initializeMafiaPlayer(){
         canMessage = true;
         canVote = true;
         canKill = true;
     }
 
-    public Mafia(String uid) {
-        userUID = uid;
-        //canDie = true;
-        canMessage = true;
-        canVote = true;
-        canKill = true;
+    public boolean getCanMessage(){
+        return canMessage;
+    }
+    public boolean getCanVote(){
+        return canVote;
+    }
+    public boolean getCanKill(){
+        return canKill;
     }
 
-
-
-    public void killPlayer() {
+    public void killPlayer(Player player) {
         // IMPLEMENT THIS TO "KILL" OTHER PLAYER
         // THAT PLAYER SHOULD BE "DISABLED"
     }

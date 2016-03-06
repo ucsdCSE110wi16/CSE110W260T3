@@ -29,7 +29,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ChatApp" />
         <activity android:name=".EnterGame" />
-        <activity android:name=".GameScript" />
         <activity android:name=".NightPhase" />
         <activity android:name=".DayPhase" />
         <activity android:name=".AssignRoles"></activity>

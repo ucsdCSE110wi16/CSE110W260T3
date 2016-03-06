@@ -5,10 +5,19 @@ package cse110winter2015group3.mafia;
  */
 public class Civilian extends Player {
 
+    // FIREBASE NEEDS EMPTY DEFAULT CONSTRUCTOR
     public Civilian() {
+
+    }
+    public void civilianInitializer(){
         canMessage = true;
         canVote = true;
-        canMessage = true;
+    }
+    public boolean canMessage(){
+        return canMessage();
+    }
+    public boolean canVote(){
+        return canVote;
     }
 
     // THIS PLAYER CLASS CAN'T DO ANYTHING EXCEPT VOTE & MESSAGE & DIE

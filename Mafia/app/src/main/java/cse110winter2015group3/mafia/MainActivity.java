@@ -42,11 +42,14 @@ public class MainActivity extends FirebaseLoginBaseActivity {
         Firebase.setAndroidContext(this);
 
         // initialize database
-        firebase = new Firebase("https://shining-inferno-5525.firebaseio.com");
+        firebase = new Firebase("https://shining-inferno-5525.firebaseio.com/Game");
 
         //Delete entries from firebase. Setting a location value to null == removing data from db
         firebase.removeValue();
         firebase.unauth();
+
+        // We can easily pull
+        //firebase.getAuth().getProviderData().get("Role");
 
         setContentView(R.layout.activity_main);
 

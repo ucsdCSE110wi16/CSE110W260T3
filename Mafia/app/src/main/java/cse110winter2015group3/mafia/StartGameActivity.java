@@ -15,7 +15,7 @@ import java.util.Random;
 public class StartGameActivity extends AppCompatActivity {
 
     private Firebase mFirebaseRef;
-    private Firebase codeRef;
+    //private Firebase codeRef;
     public String gameCode;
 
     @Override
@@ -24,9 +24,7 @@ public class StartGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start_game);
 
         Firebase.setAndroidContext(this);
-        //mFirebaseRef = new Firebase("https://radiant-torch-4018.firebaseio.com");
-        //mFirebaseRef = MainActivity.firebase;
-        mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com");
+        mFirebaseRef = new Firebase("https://radiant-torch-4018.firebaseio.com");
         final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         final int length = alphabet.length();
         StringBuilder code = new StringBuilder();
@@ -37,19 +35,13 @@ public class StartGameActivity extends AppCompatActivity {
         }
         String output = "Entry Game Code is: " + code;
         gameCode = code.toString();
-        // Coderef is a child of the original firebase db. We need to make this global so
-        // that it's child, playerRef can access it and make itself the child
-        codeRef = mFirebaseRef.child("gameCode");
+        Firebase codeRef = mFirebaseRef.child("gameCode");
         codeRef.setValue(code);
 
         TextView txtView;
         txtView = (TextView)findViewById(R.id.textView4);
         txtView.setText(output);
 
-    }
-
-    public void onButtonClick(View v) {
-        startActivity(new Intent(getApplicationContext(), GameScript.class));
     }
 
     @Override
@@ -65,17 +57,12 @@ public class StartGameActivity extends AppCompatActivity {
     }
 
     public void goEnterGame(View v){
-
         Player player = new Player();
-        //player.setPlayerStatus();
-        // store player value into db.
-        Firebase playerRef = codeRef.child("Players/player1");
-        // what if we do:
-        playerRef.push().setValue(player);
-        //playerRef.setValue(player);
-        // store the current # of players into db. Currently hardcoded at 1?
-        Firebase playerCountRef = codeRef.child("playerCount");
-        playerCountRef.push().setValue(1);
+        player.setPlayerStatus();
+        Firebase playerRef = mFirebaseRef.child("player/player1");
+        playerRef.setValue(player);
+        Firebase playerCountRef = mFirebaseRef.child("playerCount");
+        playerCountRef.setValue(1);
         startActivity(new Intent(this, EnterGame.class));
     }
 

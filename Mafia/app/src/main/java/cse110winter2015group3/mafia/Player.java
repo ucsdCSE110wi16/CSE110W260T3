@@ -5,20 +5,13 @@ package cse110winter2015group3.mafia;
  */
 public class Player {
 
-    String userUID; // unique ID used in this case will be the uses email
     boolean canVote;
     boolean canDie;
     boolean canMessage;
     boolean isDead;
     boolean isArrested;
 
-    public Player() {
-        canVote = true;
-        canDie = true;
-        canMessage = true;
-        isDead = false;
-        isArrested = false;
-    }
+    public Player() {}
 
     public void setPlayerStatus() {
         canVote = true;
@@ -28,13 +21,22 @@ public class Player {
         isArrested = false;
     }
 
-    public Player(String user) {
-        userUID = user;
-        canVote = true;
-        canDie = true;
-        canMessage = true;
-        isDead = false;
-        isArrested = false;
+    public boolean getCanVote(){
+        return canVote;
+    }
+
+    public boolean getCanDie(){
+        return canDie;
+    }
+
+    public boolean getCanMessage(){
+        return canMessage;
+    }
+    public boolean getIsDead(){
+        return isDead;
+    }
+    public boolean getIsArrested(){
+        return isArrested;
     }
 
     public void disablePlayer() {

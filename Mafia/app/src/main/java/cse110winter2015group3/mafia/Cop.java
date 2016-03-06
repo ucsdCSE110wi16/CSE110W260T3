@@ -7,20 +7,36 @@ public class Cop extends Player {
     boolean canArrest;
 
     public Cop() {
+
+    }
+
+    public void copPlayerInitializer(){
         canDie = true;
         canVote = true;
         canMessage = true;
         canArrest = true;
+    }
+    public boolean getCanDie(){
+        return canDie;
+    }
+    public boolean getCanVote(){
+        return canVote;
+    }
+    public boolean getCanMessage(){
+        return canMessage;
+    }
+    public boolean getCanArrest(){
+        return canArrest;
     }
 
     public void investigatePlayer() {
         // "GUESS" IF PLAYER IS MAFIA
         /**
          if (OTHER PLAYER IS MAFIA) {
-            // CALL FUNCTION TO ARREST AND DISABLE OTHER PLAYER
-            otherPlayer.arrestPlayer();
+         // CALL FUNCTION TO ARREST AND DISABLE OTHER PLAYER
+         otherPlayer.arrestPlayer();
          } else {
-            // IF NOT MAFIA THEN DO NOTHING
+         // IF NOT MAFIA THEN DO NOTHING
          }
          */
     }

@@ -20,7 +20,8 @@ import com.firebase.client.ValueEventListener;
 
 public class JoinGameActivity extends AppCompatActivity {
 
-    private Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com");
+    private Firebase mFirebaseRef = new Firebase("https://radiant-torch-4018.firebaseio.com");
+
     public String entryCodeInput = "";
     public int playerCount;
     @Override
@@ -37,13 +38,14 @@ public class JoinGameActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-                Toast.makeText(getApplicationContext(),
-                        "PlayerCountRef2: Error occurred!", Toast.LENGTH_SHORT).show();
+
             }
         });
+
     }
 
     public void submitCode(View v) {
+
         EditText editName = (EditText) findViewById(R.id.userInput);
         editName.setOnKeyListener(null);
         entryCodeInput = editName.getText().toString();
@@ -53,15 +55,13 @@ public class JoinGameActivity extends AppCompatActivity {
         tView.setText("Thank You!");
         Button button1 = (Button) findViewById(R.id.button3);
         button1.setClickable(false);
-        //mFirebaseRef = new Firebase("https://radiant-torch-4018.firebaseio.com");
-        //mFirebaseRef = MainActivity.firebase;
         Firebase codeRef = mFirebaseRef.child("gameCode");
         codeRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String code = dataSnapshot.getValue().toString();
                 if (entryCodeInput.equals(code)){
-                    //need to create player object and store in the DB
+                    //need to create player object and add to DB
                     final Firebase playerCountRef = mFirebaseRef.child("playerCount");
                     playerCountRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -73,8 +73,7 @@ public class JoinGameActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(FirebaseError firebaseError) {
-                            Toast.makeText(getApplicationContext(),
-                                    "PlayerCountRef: Error occurred!", Toast.LENGTH_LONG).show();
+
                         }
                     });
                     playerCount = playerCount + 1;
@@ -92,14 +91,16 @@ public class JoinGameActivity extends AppCompatActivity {
                     tView1.setText("Try Again");
                     Button button2 = (Button) findViewById(R.id.button3);
                     button2.setClickable(true);
+
+
                 }
             }
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-                Toast.makeText(getApplicationContext(),
-                        "CodeRef: Error occurred!", Toast.LENGTH_LONG).show();
+
             }
         });
+
     }
 }
