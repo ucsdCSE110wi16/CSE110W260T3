@@ -38,7 +38,8 @@ public class MainActivity extends FirebaseLoginBaseActivity {
 
         // initialize database
         firebase = new Firebase("https://shining-inferno-5525.firebaseio.com");
-        if (firebase.getAuth() == null) {
+        firebase.removeValue();
+        //if (firebase.getAuth() == null) {
             // Prompt user to log in
 
             final EditText userEmail = (EditText) findViewById(R.id.emailAddress);
@@ -87,11 +88,6 @@ public class MainActivity extends FirebaseLoginBaseActivity {
             Intent intent = new Intent(this, ChatApp.class);
             startActivity(intent);
 
-        } else {
-            // User is now logged in, proceed to next Activity (should be chat)
-            Intent intent = new Intent(this, ChatApp.class);
-            startActivity(intent);
-        }
     }
 
     @Override

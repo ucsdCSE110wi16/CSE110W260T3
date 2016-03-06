@@ -30,6 +30,7 @@
         <activity android:name=".ChatApp"></activity>
         <activity android:name=".EnterGame"></activity>
         <activity android:name=".AssignRoles"></activity>
+        <activity android:name=".GameStory"></activity>
     </application>
 
 </manifest>
