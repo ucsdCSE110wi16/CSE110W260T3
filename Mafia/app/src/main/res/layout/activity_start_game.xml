@@ -3,7 +3,8 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1"
-    android:onClick="goEnterGame">
+    android:onClick="goEnterGame"
+    >
 
     <TextView
         android:layout_width="wrap_content"
@@ -11,7 +12,9 @@
         android:text="The Enter Game Entry Code Is: "
         android:id="@+id/textView3"
         android:layout_gravity="center_horizontal"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:background="#ff0011"
+        android:textColor="#ffffff" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -26,10 +29,12 @@
         android:text="Enter Game"
         android:id="@+id/button4"
         android:layout_gravity="center_horizontal"
-        android:onClick="goEnterGame"/>
+        android:onClick="goEnterGame"
+        android:background="#2ae81d" />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:background="@drawable/murder"
         android:id="@+id/imageView"/>
 
     <GridView

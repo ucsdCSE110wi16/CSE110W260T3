@@ -13,7 +13,8 @@
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/footer">
+        android:layout_above="@+id/footer"
+        android:background="#d5f3f3">
     </ListView>
 
     <Button
@@ -24,7 +25,8 @@
         android:layout_alignTop="@android:id/list"
         android:layout_alignRight="@android:id/list"
         android:layout_alignEnd="@android:id/list"
-        android:onClick="onLogoutClick"/>
+        android:onClick="onLogoutClick"
+        android:background="#f15d5d" />
 
     <Button
         android:id="@+id/GoToHomepage"
@@ -33,7 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@android:id/list"
         android:layout_below="@+id/logout"
-        android:onClick="onGoToButtonClick"/>
+        android:onClick="onGoToButtonClick"
+        android:background="#099826" />
 
     <LinearLayout
         android:id="@+id/footer"
@@ -54,7 +57,8 @@
             android:id="@+id/send_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Send" />
+            android:text="Send"
+            android:background="#eed66d" />
 
     </LinearLayout>
 

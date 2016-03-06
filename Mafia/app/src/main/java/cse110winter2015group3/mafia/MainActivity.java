@@ -43,7 +43,7 @@ public class MainActivity extends FirebaseLoginBaseActivity {
         setContentView(R.layout.activity_main);
 
         // initialize database
-        firebase = new Firebase("https://shining-inferno-5525.firebaseio.com");
+        firebase = new Firebase("https://dark-night.firebaseio.com");
 
         // This is here temporarily so that each time the user logs in he/she is prompted to login
         //firebase.unauth();

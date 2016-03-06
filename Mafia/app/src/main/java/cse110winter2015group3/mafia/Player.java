@@ -51,4 +51,10 @@ public class Player {
             // FX LINKING PLAYER TO MSGBOARD AND VICE VERSA
         }
     }
+    public String getUserUID(){
+        return userUID;
+    }
+    public void setUserUID(String name){
+        userUID = name;
+    }
 }

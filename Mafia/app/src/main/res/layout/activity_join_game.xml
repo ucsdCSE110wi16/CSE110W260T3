@@ -15,7 +15,10 @@
         android:text="Please Enter Game Entry Code"
         android:id="@+id/textView2"
         android:layout_gravity="center_horizontal"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:background="#94ee7d"
+        android:textColor="#eb4545"
+        android:visibility="visible" />
 
     <EditText
         android:layout_width="match_parent"
@@ -32,7 +35,9 @@
         android:id="@+id/button3"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/userInput"
-        android:onClick="submitCode" />
+        android:onClick="submitCode"
+        android:background="#1e38e1"
+        android:textColor="#e6e7c0" />
 
     <ImageView
         android:layout_width="wrap_content"

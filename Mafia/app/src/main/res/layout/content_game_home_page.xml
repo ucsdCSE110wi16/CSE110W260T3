@@ -11,7 +11,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="cse110winter2015group3.mafia.GameHomePage"
     tools:showIn="@layout/activity_game_home_page"
-    android:background="@drawable/mafia2">
+    android:background="@drawable/mafia6">
 
     <Button
         android:layout_width="wrap_content"
