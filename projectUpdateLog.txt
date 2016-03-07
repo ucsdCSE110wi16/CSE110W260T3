@@ -31,3 +31,18 @@ Had problems where the project would load the previous run-times data, so I adde
 Added an option for users to create accounts on the spot rather than the accounts being hardcoded on our server.
 
 More updates should come tomorrow (3/6/2016) when our group meets
+
+Date: 3/6/2016
+
+STAN:
+
+- Implemented individual Chat's unique for each player class (Mafia/Cop/...)
+- Can now properly generate Player roles for users and store in database
+- Can access said data to implement game logic 
+	-> Which activities should be accessible for each role?
+		- Mafia should be active during NightPhase
+		- Civilian shouldn't
+- Luc is now Head of UI and working hard to make our app look nice
+- We are still finishing up the game logic but we have the pieces already, we 
+need to put them together.
+- Testing will be done on Monday, 3/7/2016.

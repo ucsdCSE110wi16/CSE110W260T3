@@ -1,37 +1,29 @@
 package cse110winter2015group3.mafia;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
-import org.w3c.dom.Text;
+import java.nio.BufferUnderflowException;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
+public class EnterGame extends AppCompatActivity {
 
-/**
- * Created by aneeshnatarajan on 3/2/16.
- */
-public class EnterGame extends Activity{
+    // initialize the fireBase
     public int playerCount;
-    Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com");
+    Firebase mFirebaseRef;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enter_game);
+        Firebase.setAndroidContext(this);
+        mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com");
         Firebase playerCountRef = mFirebaseRef.child("Game/playerCount");
         playerCountRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -48,12 +40,17 @@ public class EnterGame extends Activity{
 
             }
         });
+
+        // TEMPORARY TO TEST MAFIA CHAT
+        Button goToMafiaChat = (Button) findViewById(R.id.goToChat);
+        goToMafiaChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MafiaChatApp.class));
+            }
+        });
     }
     public void goAssignRoles(View view){
         startActivity(new Intent(this, AssignRoles.class));
     }
-
-
-
 }
-

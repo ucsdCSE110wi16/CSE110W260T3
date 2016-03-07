@@ -10,10 +10,12 @@ public class Player {
     boolean canMessage;
     boolean isDead;
     boolean isArrested;
+    String role;
 
     public Player() {}
 
     public void setPlayerStatus() {
+        role = "Player";
         canVote = true;
         canDie = true;
         canMessage = true;

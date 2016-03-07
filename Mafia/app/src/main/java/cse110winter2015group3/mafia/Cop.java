@@ -5,12 +5,13 @@ package cse110winter2015group3.mafia;
  */
 public class Cop extends Player {
     boolean canArrest;
-    //need open constructor and getter/setter methods for Firebase
+
     public Cop() {
 
     }
 
     public void copPlayerInitializer(){
+        role = "Cop";
         canDie = true;
         canVote = true;
         canMessage = true;

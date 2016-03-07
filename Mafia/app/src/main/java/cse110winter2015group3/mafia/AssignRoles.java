@@ -1,7 +1,7 @@
 package cse110winter2015group3.mafia;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -11,22 +11,29 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import java.util.Map;
+import android.os.Handler;
 
-/**
- * Created by aneeshnatarajan on 3/3/16.
- */
-public class AssignRoles extends Activity{
-    Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com");
+public class AssignRoles extends AppCompatActivity {
+
+    Firebase mFirebaseRef;
     Map<String,Player> playerMap;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.assign_roles);
+        Firebase.setAndroidContext(this);
+        mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com");
         assignRoles();
 
-        Intent intent = new Intent(this,GameStory.class);
-        startActivity(intent);
-        moveToRevealRoles();
-
+        // DELAY TIMER BEFORE MOVING ONTO NEXT PAGE --> RevealRoles --> GameStory
+        int delay = 1000;
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(getApplicationContext(), RevealRoles.class);
+                startActivity(intent);
+            }
+        }, delay);
     }
     private void assignRoles(){
         Firebase playerListRef = mFirebaseRef.child("Game/player");
@@ -37,7 +44,6 @@ public class AssignRoles extends Activity{
                 Firebase playerRoleRef = mFirebaseRef.child("Game/player/");
                 int i = 0;
                 //Create a moderator
-
                 for (Map.Entry<String, Player> entry : playerMap.entrySet()) {
                     String playerName = entry.getKey();
                     Log.d("Player Name", "The player is: " + playerName);
@@ -73,9 +79,7 @@ public class AssignRoles extends Activity{
                         Log.d("Civilian Created", "Creating a Civilian Player");
                     }
                     i = i + 1;
-
                 }
-
             }
 
             @Override
@@ -83,9 +87,8 @@ public class AssignRoles extends Activity{
 
             }
         });
-
-
     }
+
     public void moveToRevealRoles(){
         //if Players/username/role == Mafia { Start MafiaNightPhase Activity }
         //if Players/username/role == Cop { Start MafiaNightPhase Activity }

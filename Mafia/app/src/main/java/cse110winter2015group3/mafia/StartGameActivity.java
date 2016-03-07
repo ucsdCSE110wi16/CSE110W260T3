@@ -6,33 +6,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.TextView;
 
 import com.firebase.client.Firebase;
 
-import java.util.Random;
-
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
-
-import java.util.Map;
 import java.util.Random;
 
 public class StartGameActivity extends AppCompatActivity {
-    private Firebase mFirebaseRef;
-    public String gameCode;
 
+    private Firebase mFirebaseRef;
+    //private Firebase codeRef;
+    public String gameCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_game);
+
         Firebase.setAndroidContext(this);
         mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com");
         final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -52,7 +42,6 @@ public class StartGameActivity extends AppCompatActivity {
         txtView = (TextView)findViewById(R.id.textView4);
         txtView.setText(output);
 
-
     }
 
     @Override
@@ -67,7 +56,7 @@ public class StartGameActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void goEnterGame(View v) {
+    public void goEnterGame(View v){
         String uID = mFirebaseRef.getAuth().getProviderData().get("email").toString();
         String [] strArray = uID.split("@");
         String userName = strArray[0];
@@ -78,9 +67,6 @@ public class StartGameActivity extends AppCompatActivity {
         Firebase playerCountRef = mFirebaseRef.child("Game/playerCount");
         playerCountRef.setValue(1);
         startActivity(new Intent(this, EnterGame.class));
-
     }
-
-
 
 }
