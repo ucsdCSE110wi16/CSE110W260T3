@@ -35,7 +35,7 @@ public class JoinGameActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_game);
-        Firebase playerCountRef2 = mFirebaseRef.child("playerCount");
+        Firebase playerCountRef2 = mFirebaseRef.child("Game/playerCount");
         playerCountRef2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -87,7 +87,8 @@ public class JoinGameActivity extends AppCompatActivity {
                     String [] strArray = uID.split("@");
                     String userName = strArray[0];
 
-                    String queryString = "Game/player/" + userName;
+
+                    String queryString = "Game/player/" + userName + "/PlayerObject";
                     System.out.println("queryString is: " + queryString);
                     Firebase playerRef1 = mFirebaseRef.child(queryString);
                     Player player = new Player();

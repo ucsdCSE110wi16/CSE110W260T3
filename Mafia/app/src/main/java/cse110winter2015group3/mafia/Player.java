@@ -48,6 +48,9 @@ public class Player {
         //    isArrested = true;
         // }
     }
+    public void savePlayer(){
+        canDie = false;
+    }
 
     public void vote() {
         if (canVote) {

@@ -73,7 +73,7 @@ public class StartGameActivity extends AppCompatActivity {
         String userName = strArray[0];
         Player player = new Player();
         player.setPlayerStatus();
-        Firebase playerRef = mFirebaseRef.child("Game/player/"+userName);
+        Firebase playerRef = mFirebaseRef.child("Game/player/"+userName+"/PlayerObject");
         playerRef.setValue(player);
         Firebase playerCountRef = mFirebaseRef.child("Game/playerCount");
         playerCountRef.setValue(1);
