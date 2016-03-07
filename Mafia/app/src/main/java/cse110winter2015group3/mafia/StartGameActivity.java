@@ -8,6 +8,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.TextView;
+
+import com.firebase.client.Firebase;
+
+import java.util.Random;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,12 +27,14 @@ import java.util.Random;
 public class StartGameActivity extends AppCompatActivity {
     private Firebase mFirebaseRef;
     public String gameCode;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_game);
         Firebase.setAndroidContext(this);
-        mFirebaseRef = new Firebase("https://radiant-torch-4018.firebaseio.com");
+        mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com");
         final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         final int length = alphabet.length();
         StringBuilder code = new StringBuilder();
@@ -38,12 +45,13 @@ public class StartGameActivity extends AppCompatActivity {
         }
         String output = "Entry Game Code is: " + code;
         gameCode = code.toString();
-        Firebase codeRef = mFirebaseRef.child("gameCode");
+        Firebase codeRef = mFirebaseRef.child("Game/gameCode");
         codeRef.setValue(code);
 
         TextView txtView;
         txtView = (TextView)findViewById(R.id.textView4);
         txtView.setText(output);
+
 
     }
 
@@ -59,16 +67,19 @@ public class StartGameActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void goEnterGame(View v){
+    public void goEnterGame(View v) {
+        String uID = mFirebaseRef.getAuth().getProviderData().get("email").toString();
+        String [] strArray = uID.split("@");
+        String userName = strArray[0];
         Player player = new Player();
         player.setPlayerStatus();
-        Firebase playerRef = mFirebaseRef.child("player/player1");
+        Firebase playerRef = mFirebaseRef.child("Game/player/"+userName);
         playerRef.setValue(player);
-        Firebase playerCountRef = mFirebaseRef.child("playerCount");
+        Firebase playerCountRef = mFirebaseRef.child("Game/playerCount");
         playerCountRef.setValue(1);
         startActivity(new Intent(this, EnterGame.class));
-    }
 
+    }
 
 
 

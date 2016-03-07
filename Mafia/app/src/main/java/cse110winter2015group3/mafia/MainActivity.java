@@ -17,6 +17,12 @@ import com.firebase.ui.auth.core.AuthProviderType;
 import com.firebase.ui.auth.core.FirebaseLoginBaseActivity;
 import com.firebase.ui.auth.core.FirebaseLoginError;
 
+/**
+ * LOGIN FOR STANS FIREBASE SERVER: SHINING-INFERNO
+ * ACCT #1: stan_deng@yahoo.com , pw= 1111
+ * ACCT #2: aneesh@yahoo.com, pw = 12345
+ *
+ */
 
 public class MainActivity extends FirebaseLoginBaseActivity {
 
@@ -24,6 +30,7 @@ public class MainActivity extends FirebaseLoginBaseActivity {
     public static Firebase firebase;
     public static AuthData globalAuth;
     Button loginButton;
+    Button signupButton;
     String emailtxt;
     String passwordtxt;
 
@@ -34,22 +41,32 @@ public class MainActivity extends FirebaseLoginBaseActivity {
         // allows Firebase client to keep its context
         Firebase.setAndroidContext(this);
 
-        setContentView(R.layout.activity_main);
-
         // initialize database
         firebase = new Firebase("https://shining-inferno-5525.firebaseio.com");
-        firebase.removeValue();
+        //firebase.removeValue();
         //if (firebase.getAuth() == null) {
             // Prompt user to log in
+        firebase = new Firebase("https://shining-inferno-5525.firebaseio.com/Game");
+        Firebase playerCountRef = firebase.child("playerCount");
+        playerCountRef.setValue(0);
 
-            final EditText userEmail = (EditText) findViewById(R.id.emailAddress);
-            final EditText userPassword = (EditText) findViewById(R.id.password);
-            loginButton = (Button) findViewById(R.id.login);
+        //Delete entries from firebase. Setting a location value to null == removing data from db
+        firebase.removeValue();
+        firebase.unauth();
 
-            Toast.makeText(getApplicationContext(), "EMAIL: " + userEmail.getText().toString(), Toast.LENGTH_SHORT).show();
+        // We can easily pull
+        //firebase.getAuth().getProviderData().get("Role");
 
+        setContentView(R.layout.activity_main);
 
-            loginButton.setOnClickListener(new View.OnClickListener() {
+        // Prompt user to log in
+
+        final EditText userEmail = (EditText) findViewById(R.id.emailAddress);
+        final EditText userPassword = (EditText) findViewById(R.id.password);
+        loginButton = (Button) findViewById(R.id.login);
+        signupButton = (Button) findViewById(R.id.signup);
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     emailtxt = userEmail.getText().toString();
@@ -57,7 +74,9 @@ public class MainActivity extends FirebaseLoginBaseActivity {
                     firebase.authWithPassword(emailtxt, passwordtxt, new Firebase.AuthResultHandler() {
                         @Override
                         public void onAuthenticated(AuthData authData) {
+
                             globalAuth = authData;
+                            startActivity(new Intent(getApplicationContext(), ChatApp.class));
                         }
 
                         @Override
@@ -80,14 +99,36 @@ public class MainActivity extends FirebaseLoginBaseActivity {
                             }
                         }
                     });
-
                 }
             });
 
 
-            Intent intent = new Intent(this, ChatApp.class);
-            startActivity(intent);
+        signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                emailtxt = userEmail.getText().toString();
+                passwordtxt = userPassword.getText().toString();
+                firebase.createUser(emailtxt, passwordtxt, new Firebase.ResultHandler() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(getApplicationContext(),
+                                "Successfully created account! Please login.",
+                                Toast.LENGTH_LONG).show();
+                    }
 
+                    @Override
+                    public void onError(FirebaseError firebaseError) {
+                        Toast.makeText(getApplicationContext(),
+                                "This email is already being used!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        //} else {
+            // User is now logged in, proceed to next Activity (should be chat)
+           // startActivity(new Intent(getApplicationContext(), ChatApp.class));
+       // }
     }
 
     @Override
@@ -119,5 +160,4 @@ public class MainActivity extends FirebaseLoginBaseActivity {
         Intent intent = new Intent(this, ChatApp.class);
         startActivity(intent);
     }
-
 }

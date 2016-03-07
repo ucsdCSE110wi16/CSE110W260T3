@@ -9,3 +9,25 @@ I fixed a problem with firebase where authentication was throwing errors and we 
 		1) Chat with your specific UID/email displayed
 		2) Go to the Game Homepage
 		3) Logout
+
+
+Date: 3/2/2016 
+
+STAN:
+
+For this week's meeting with the client we developed the code to start a game
+with just 1 user and 4 AI. It is very very rudimental and basically all hard-coded as of now. Basically the user is automatically given the role of Mafia, and 4 other player roles are generated as AI. The game then enters night phase and allows the user the vote on whom to kill. So we basically have the skeleton code for how the game logic should flow, we just need to implement a way to allow each unique user to receive a different view of day/night phase depending on their role. We hope to have it done this weekend in preperation for the demo next week.
+
+Date: 3/5/2016
+
+STAN:
+
+Everyone's been busy this week, so we haven't been able to meet physically yet. Luc & Aneesh implemented some functionality's to ensure the proper number of players are entered in a game (minimum and, currently, the maximum should be 4). 
+
+We decided to keep it simple and hardcode the moderator, leaving 4 player classes for users to be assigned (Mafia / doctor / cop / civilian).
+
+Had problems where the project would load the previous run-times data, so I added a firebase function call called remove() at the beginning of mainActivity to clear the db and allow the app to run smoothly.
+
+Added an option for users to create accounts on the spot rather than the accounts being hardcoded on our server.
+
+More updates should come tomorrow (3/6/2016) when our group meets

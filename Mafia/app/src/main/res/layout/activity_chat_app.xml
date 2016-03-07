@@ -23,8 +23,7 @@
         android:id="@+id/logout"
         android:layout_alignTop="@android:id/list"
         android:layout_alignRight="@android:id/list"
-        android:layout_alignEnd="@android:id/list"
-        android:onClick="onLogoutClick"/>
+        android:layout_alignEnd="@android:id/list" />
 
     <Button
         android:id="@+id/GoToHomepage"
@@ -32,8 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@android:id/list"
-        android:layout_below="@+id/logout"
-        android:onClick="onGoToButtonClick"/>
+        android:layout_below="@+id/logout" />
 
     <LinearLayout
         android:id="@+id/footer"

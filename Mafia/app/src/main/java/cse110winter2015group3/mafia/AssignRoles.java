@@ -16,7 +16,7 @@ import java.util.Map;
  * Created by aneeshnatarajan on 3/3/16.
  */
 public class AssignRoles extends Activity{
-    Firebase mFirebaseRef = new Firebase("https://radiant-torch-4018.firebaseio.com/");
+    Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com");
     Map<String,Player> playerMap;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,12 +29,12 @@ public class AssignRoles extends Activity{
 
     }
     private void assignRoles(){
-        Firebase playerListRef = mFirebaseRef.child("player");
+        Firebase playerListRef = mFirebaseRef.child("Game/player");
         playerListRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 playerMap = (Map<String, Player>) dataSnapshot.getValue();
-                Firebase playerRoleRef = mFirebaseRef.child("player/");
+                Firebase playerRoleRef = mFirebaseRef.child("Game/player/");
                 int i = 0;
                 //Create a moderator
 

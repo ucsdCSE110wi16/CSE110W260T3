@@ -9,6 +9,7 @@ public class Doctor extends Player {
     public Doctor() {
 
     }
+
     public void initializeDoctorPlayer(){
         canHeal = true;
         canMessage = true;

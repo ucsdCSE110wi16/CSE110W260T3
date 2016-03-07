@@ -5,6 +5,7 @@ package cse110winter2015group3.mafia;
  */
 public class Civilian extends Player {
 
+    // FIREBASE NEEDS EMPTY DEFAULT CONSTRUCTOR
     public Civilian() {
 
     }

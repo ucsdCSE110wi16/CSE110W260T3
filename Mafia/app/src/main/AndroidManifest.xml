@@ -27,10 +27,20 @@
             android:name=".GameHomePage"
             android:label="@string/title_activity_game_home_page"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ChatApp"></activity>
-        <activity android:name=".EnterGame"></activity>
-        <activity android:name=".AssignRoles"></activity>
-        <activity android:name=".GameStory"></activity>
+        <activity android:name=".ChatApp" />
+        <activity android:name=".EnterGame" />
+        <activity android:name=".AssignRoles" />
+        <activity android:name=".GameStory" />
+        <activity android:name=".NightPhase" />
+        <activity android:name=".DayPhase" />
+        <activity android:name=".CopNightPhase" />
+        <activity android:name=".DoctorNightPhase" />
+        <activity android:name=".CivilianNightPhase" />
+        <activity android:name=".ModeratorNightPhase" />
+        <activity android:name=".MafiaNightPhase" />
+        <activity android:name=".Results" />
+        <activity android:name=".EndGame" />
+        <activity android:name=".RevealRoles"></activity>
     </application>
 
 </manifest>

@@ -27,12 +27,12 @@ import java.util.List;
  */
 public class EnterGame extends Activity{
     public int playerCount;
-    Firebase mFirebaseRef = new Firebase("https://radiant-torch-4018.firebaseio.com");
+    Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com");
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enter_game);
-        Firebase playerCountRef = mFirebaseRef.child("playerCount");
+        Firebase playerCountRef = mFirebaseRef.child("Game/playerCount");
         playerCountRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -56,3 +56,4 @@ public class EnterGame extends Activity{
 
 
 }
+

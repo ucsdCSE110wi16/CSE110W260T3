@@ -33,10 +33,10 @@ public class Cop extends Player {
         // "GUESS" IF PLAYER IS MAFIA
         /**
          if (OTHER PLAYER IS MAFIA) {
-            // CALL FUNCTION TO ARREST AND DISABLE OTHER PLAYER
-            otherPlayer.arrestPlayer();
+         // CALL FUNCTION TO ARREST AND DISABLE OTHER PLAYER
+         otherPlayer.arrestPlayer();
          } else {
-            // IF NOT MAFIA THEN DO NOTHING
+         // IF NOT MAFIA THEN DO NOTHING
          }
          */
     }

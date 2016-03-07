@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.firebase.client.ChildEventListener;
+import android.widget.Toast;
+
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -23,7 +25,8 @@ import com.firebase.client.ValueEventListener;
 import org.w3c.dom.Text;
 
 public class JoinGameActivity extends AppCompatActivity {
-    private Firebase mFirebaseRef = new Firebase("https://radiant-torch-4018.firebaseio.com");
+
+    private Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com");
 
     public String entryCodeInput = "";
     public int playerCount;
@@ -58,14 +61,14 @@ public class JoinGameActivity extends AppCompatActivity {
         tView.setText("Thank You!");
         Button button1 = (Button) findViewById(R.id.button3);
         button1.setClickable(false);
-        Firebase codeRef = mFirebaseRef.child("gameCode");
+        Firebase codeRef = mFirebaseRef.child("Game/gameCode");
         codeRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String code = dataSnapshot.getValue().toString();
                 if (entryCodeInput.equals(code)){
                     //need to create player object and add to DB
-                    final Firebase playerCountRef = mFirebaseRef.child("playerCount");
+                    final Firebase playerCountRef = mFirebaseRef.child("Game/playerCount");
                     playerCountRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -80,7 +83,11 @@ public class JoinGameActivity extends AppCompatActivity {
                         }
                     });
                     playerCount = playerCount + 1;
-                    String queryString = "player/player" + String.valueOf(playerCount);
+                    String uID = mFirebaseRef.getAuth().getProviderData().get("email").toString();
+                    String [] strArray = uID.split("@");
+                    String userName = strArray[0];
+
+                    String queryString = "Game/player/" + userName;
                     System.out.println("queryString is: " + queryString);
                     Firebase playerRef1 = mFirebaseRef.child(queryString);
                     Player player = new Player();
