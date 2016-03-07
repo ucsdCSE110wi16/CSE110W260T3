@@ -34,7 +34,10 @@
         <activity android:name=".AssignRoles" />
         <activity android:name=".MafiaChatApp" />
         <activity android:name=".GameStory" />
-        <activity android:name=".RevealRoles"></activity>
+        <activity android:name=".RevealRoles" />
+        <activity android:name=".CopChatApp" />
+        <activity android:name=".CivilianChatApp" />
+        <activity android:name=".DoctorChatApp"></activity>
     </application>
 
 </manifest>

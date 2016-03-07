@@ -15,6 +15,7 @@ import android.os.Handler;
 
 public class AssignRoles extends AppCompatActivity {
 
+    public static String currentUserRole;
     Firebase mFirebaseRef;
     Map<String,Player> playerMap;
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class AssignRoles extends AppCompatActivity {
                         Firebase mafiaRef = playerRoleRef.child(playerName + "/Role/Mafia");
                         mafiaRef.setValue(mafiaPlayer);
                         Log.d("Mafia Created", "Creating a Mafia Player");
+                        currentUserRole = "Mafia";
                     } else if (index == 1) {
                         //Create A Cop Player
                         Cop copPlayer = new Cop();
@@ -62,6 +64,7 @@ public class AssignRoles extends AppCompatActivity {
                         Firebase copRef = playerRoleRef.child(playerName + "/Role/Cop");
                         copRef.setValue(copPlayer);
                         Log.d("Cop Created", "Creating a Cop Player");
+                        currentUserRole = "Cop";
                     } else if (index == 2) {
                         //Create A Doctor
                         Doctor doctorPlayer = new Doctor();
@@ -69,7 +72,7 @@ public class AssignRoles extends AppCompatActivity {
                         Firebase doctorRef = playerRoleRef.child(playerName + "/Role/Doctor");
                         doctorRef.setValue(doctorPlayer);
                         Log.d("Doctor Created", "Creating a Doctor Player");
-
+                        currentUserRole = "Doctor";
                     } else if (index == 3 || index == 4) {
                         //Create A Villager
                         Civilian civilianPlayer = new Civilian();
@@ -77,6 +80,7 @@ public class AssignRoles extends AppCompatActivity {
                         Firebase civilianRef = playerRoleRef.child(playerName + "/Role/Civilian");
                         civilianRef.setValue(civilianPlayer);
                         Log.d("Civilian Created", "Creating a Civilian Player");
+                        currentUserRole = "Civilian";
                     }
                     i = i + 1;
                 }

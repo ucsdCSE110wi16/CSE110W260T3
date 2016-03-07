@@ -36,10 +36,9 @@ public class RevealRoles extends AppCompatActivity {
         String[] strArry = userEmail.split("@");
         String userName = strArry[0];
 
-        // THIS NEXT PARTS NEEDS WORK. IT IS CURRENTLY HARDCODED. WE NEED TO BE ABLE TO
-        // QUERY THE DB AND PULL THE ACTUAL ROLE
-
-        String playerRole = "Your Role is: " + firebase.child(userName+"/Role/Mafia").getKey();
+        //String playerRole = "Your Role is: " + firebase.child(userName+"/Role/Mafia").getKey();
+        // HERE WE USE A GLOBAL STRING FROM AssignRoles.java THAT IS STORED UPON ROLE CREATION
+        String playerRole = "Your Role is: " + AssignRoles.currentUserRole;
         revealRole.setText(playerRole);
 
         int delay = 5000;
