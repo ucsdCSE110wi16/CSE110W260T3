@@ -6,7 +6,7 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 /**
- * Created by Stan on 2/20/2016.
+ * Created by Aneesh on 2/20/2016.
  */
 public class Cop extends Player {
     boolean canArrest;
