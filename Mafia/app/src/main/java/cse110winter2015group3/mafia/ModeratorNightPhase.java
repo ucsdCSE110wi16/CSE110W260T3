@@ -11,7 +11,18 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
-
+/*
+*Class: ModeratorNightPhase.java
+* Description: This Activity class represents the activity of the Moderator during the Night Phase of the Game
+* The moderator defines and implements methods that allows the Moderator to prompt the Mafia, the Doctor,
+* and the Cop to perform their actions. The logic ensures that the first player who is selected by any
+* Cop, Mafia, or Doctor are deleting the correct people
+*
+* Fields                                                    Description
+* ------------------------------------------------------------------------------------------------------------
+* Firebase mFirebaseRef                                 reference to DB
+* Moderator moderator                                   moderator object represents curr moderator player
+* */
 public class ModeratorNightPhase extends AppCompatActivity {
     private Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/Game");
     private Moderator moderator;

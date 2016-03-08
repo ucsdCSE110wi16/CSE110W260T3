@@ -36,8 +36,8 @@ public class Doctor extends Player {
     }
 
     public void healPlayer(String playerName) {
-        Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/");
-
+        final Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/");
+        mFirebaseRef.child("Game/Results/KilledPlayer").setValue(playerName);
         String queryString = "/Game/player/" + playerName;
         final Firebase playerKilledRef = mFirebaseRef.child(queryString);
         playerKilledRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -46,7 +46,8 @@ public class Doctor extends Player {
                 Player player = dataSnapshot.child("PlayerObject").getValue(Player.class);
                 String role = dataSnapshot.child("Role").getValue().toString();
                 //if player is the moderator or has been saved, then he cannot be killed
-                if(role.equals("Moderator") || player.canDie == false || role.equals("Doctor") || player.isDead == true){
+                if(role.equals("Moderator") || player.canDie == false || player.isDead == true){
+                    mFirebaseRef.child("Game/Results/KilledPlayer").setValue("");
                     return;
                 }
                 if(role.equals("Mafia")){
@@ -67,6 +68,7 @@ public class Doctor extends Player {
                     civilian.savePlayer();
                     player.savePlayer();
                     playerKilledRef.child("CivilianObject").setValue(civilian);
+
                 }
             }
 

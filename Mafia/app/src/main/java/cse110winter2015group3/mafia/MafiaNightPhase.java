@@ -20,6 +20,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+/*
+*Class: MafiaNightPhase.java
+* Description: This Activity class represents the activity of the Mafia during the night phase aspect
+* of the game. This class implements the NightPhase interface, which allows it to implement all of its
+* methods. The mafia has methods to recieve a prompt from the moderator, at which point, they can
+* enter the username of the player they would like to kill
+*
+* Fields                                                    Description
+* ------------------------------------------------------------------------------------------------------------
+* Firebase mFirebaseRef                                 reference to DB
+* Mafia mafia                                  mafia object represents curr moderator player
+* */
 public class MafiaNightPhase extends AppCompatActivity implements NightPhase{
     private Mafia mafia;
     private List<String> playersToKill;
@@ -124,7 +136,7 @@ public class MafiaNightPhase extends AppCompatActivity implements NightPhase{
         editName.setText("");
         Button playerKillButton = (Button) findViewById(R.id.killPlayerButton);
         if(Arrays.asList(playersToKill).contains(killedPlayer)){
-            playerKillButton.setText("The player you have selected has been killed");
+            playerKillButton.setText("Attempt to Kill Has Been Logged");
             mafia.killPlayer(killedPlayer);
         }
         else{

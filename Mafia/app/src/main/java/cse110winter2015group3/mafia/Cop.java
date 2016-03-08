@@ -37,9 +37,10 @@ public class Cop extends Player {
 
     public void investigatePlayer(String playerName) {
 
-        Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/");
+        final Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/");
 
         String queryString = "/Game/player/" + playerName;
+        mFirebaseRef.child("Game/Results/KilledArrested").setValue(playerName);
         final Firebase playerKilledRef = mFirebaseRef.child(queryString);
         playerKilledRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -55,6 +56,7 @@ public class Cop extends Player {
                     playerKilledRef.child("MafiaObject").setValue(mafia);
                 }
                 else{
+                    mFirebaseRef.child("Game/Results/KilledPlayer").setValue("");
                     return;
                 }
 
