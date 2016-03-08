@@ -1,5 +1,7 @@
 package cse110winter2015group3.mafia;
 
+import android.os.Handler;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +16,13 @@ import com.firebase.client.ValueEventListener;
 
 import java.util.Map;
 
+import cse110winter2015group3.mafia.Civilian;
+import cse110winter2015group3.mafia.Cop;
+import cse110winter2015group3.mafia.Doctor;
+import cse110winter2015group3.mafia.Mafia;
+import cse110winter2015group3.mafia.Moderator;
+import cse110winter2015group3.mafia.Player;
+
 /**
  * Created by aneeshnatarajan on 3/3/16.
  */
@@ -25,7 +34,16 @@ public class AssignRoles extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.assign_roles);
         assignRoles();
-
+        // DELAY TIMER BEFORE MOVING ONTO NEXT PAGE --> RevealRoles --> GameStory
+        int delay = 1000;
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(getApplicationContext(), RevealRoles.class);
+                startActivity(intent);
+            }
+        }, delay);
         //Intent intent = new Intent(this,GameStory.class);
         //startActivity(intent);
         moveToRevealRoles();

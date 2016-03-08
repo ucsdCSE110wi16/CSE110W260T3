@@ -10,6 +10,7 @@ public class Civilian extends Player {
 
     }
     public void civilianInitializer(){
+        role = "Civilian";
         canMessage = true;
         canVote = true;
     }

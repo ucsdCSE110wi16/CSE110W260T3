@@ -1,5 +1,9 @@
 package cse110winter2015group3.mafia;
 
+import android.content.Intent;
+
+
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
@@ -22,6 +26,8 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import cse110winter2015group3.mafia.AssignRoles;
+
 /**
  * Created by aneeshnatarajan on 3/2/16.
  */
@@ -37,7 +43,7 @@ public class EnterGame extends Activity{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 playerCount = Integer.parseInt(dataSnapshot.getValue().toString());
-                if (playerCount >= 1){
+                if (playerCount >= 1) {
                     Button button1 = (Button) findViewById(R.id.ready_to_start);
                     button1.setClickable(true);
                 }

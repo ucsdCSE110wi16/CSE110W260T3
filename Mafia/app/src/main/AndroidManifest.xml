@@ -29,18 +29,14 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ChatApp" />
         <activity android:name=".EnterGame" />
-        <activity android:name=".AssignRoles" />
-        <activity android:name=".GameStory" />
-        <activity android:name=".NightPhase" />
         <activity android:name=".DayPhase" />
-        <activity android:name=".CopNightPhase" />
-        <activity android:name=".DoctorNightPhase" />
-        <activity android:name=".CivilianNightPhase" />
-        <activity android:name=".ModeratorNightPhase" />
-        <activity android:name=".MafiaNightPhase" />
-        <activity android:name=".Results" />
-        <activity android:name=".EndGame" />
-        <activity android:name=".RevealRoles"></activity>
+        <activity android:name=".AssignRoles" />
+        <activity android:name=".MafiaChatApp" />
+        <activity android:name=".GameStory" />
+        <activity android:name=".RevealRoles" />
+        <activity android:name=".CopChatApp" />
+        <activity android:name=".CivilianChatApp" />
+        <activity android:name=".DoctorChatApp"></activity>
     </application>
 
 </manifest>

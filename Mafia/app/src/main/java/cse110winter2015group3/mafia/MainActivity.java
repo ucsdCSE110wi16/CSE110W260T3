@@ -42,20 +42,25 @@ public class MainActivity extends FirebaseLoginBaseActivity {
         Firebase.setAndroidContext(this);
 
         // initialize database
-        firebase = new Firebase("https://shining-inferno-5525.firebaseio.com");
-        //firebase.removeValue();
-        //if (firebase.getAuth() == null) {
-            // Prompt user to log in
         firebase = new Firebase("https://shining-inferno-5525.firebaseio.com/Game");
+
+        // intialize playerCount = 0.
+        // WE NEED TO RETHINK THIS. EACH TIME A USER OPENS APP IT WILL SET PLAYER COUNT TO ZERO!
         Firebase playerCountRef = firebase.child("playerCount");
         playerCountRef.setValue(0);
 
         //Delete entries from firebase. Setting a location value to null == removing data from db
-        firebase.removeValue();
-        firebase.unauth();
+        Firebase toRemovePrevGameCode =
+                new Firebase("https://shining-inferno-5525.firebaseio.com/Game/gamecode");
+        toRemovePrevGameCode.removeValue();
+        Firebase toRemovePrevChat = new Firebase("https://shining-inferno-5525.firebaseio.com/Game/Chat");
+        toRemovePrevChat.removeValue();
 
-        // We can easily pull
-        //firebase.getAuth().getProviderData().get("Role");
+        // IN END GAME WE CAN DELETE EERYTHING INCLUDING PLAYERS!
+
+
+
+        firebase.unauth();
 
         setContentView(R.layout.activity_main);
 
@@ -101,7 +106,6 @@ public class MainActivity extends FirebaseLoginBaseActivity {
                     });
                 }
             });
-
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override

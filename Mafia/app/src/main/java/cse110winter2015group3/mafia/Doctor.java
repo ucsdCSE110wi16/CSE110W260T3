@@ -16,6 +16,7 @@ public class Doctor extends Player {
     }
 
     public void initializeDoctorPlayer(){
+        role = "Doctor";
         canHeal = true;
         canMessage = true;
         canVote = true;

@@ -14,15 +14,17 @@ public class Mafia extends Player {
 
     // MAFIA PLAYER CAN KILL OTHER PLAYER CLASSES
     boolean canKill;
-    //Need open constructor and getter and setter methods to make compatible with firebase
+
     public Mafia() {
     }
     public void initializeMafiaPlayer(){
+        role = "Mafia";
         canMessage = true;
         canVote = true;
         canKill = true;
     }
 
+    public String getRoleType() { return role; }
     public boolean getCanMessage(){
         return canMessage;
     }

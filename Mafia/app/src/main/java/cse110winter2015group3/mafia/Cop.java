@@ -10,12 +10,13 @@ import com.firebase.client.ValueEventListener;
  */
 public class Cop extends Player {
     boolean canArrest;
-    //need open constructor and getter/setter methods for Firebase
+
     public Cop() {
 
     }
 
     public void copPlayerInitializer(){
+        role = "Cop";
         canDie = true;
         canVote = true;
         canMessage = true;
