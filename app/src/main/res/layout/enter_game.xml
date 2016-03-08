@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open Chat"
+        android:id="@+id/goToChat"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="List of Players"
+        android:id="@+id/player_list"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1.03"
+        android:textAlignment="gravity" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:id="@+id/listView" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ready To Start"
+        android:id="@+id/ready_to_start"
+        android:layout_gravity="center_horizontal"
+        android:background="#f31212"
+        android:textColor="#f8f5f5"
+        android:onClick="goAssignRoles"/>
+</LinearLayout>
