@@ -1,17 +1,12 @@
 package cse110winter2015group3.mafia;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -45,7 +40,6 @@ public class JoinGameActivity extends AppCompatActivity {
     }
 
     public void submitCode(View v) {
-
         EditText editName = (EditText) findViewById(R.id.userInput);
         editName.setOnKeyListener(null);
         entryCodeInput = editName.getText().toString();
@@ -81,7 +75,8 @@ public class JoinGameActivity extends AppCompatActivity {
                     String [] strArray = uID.split("@");
                     String userName = strArray[0];
 
-                    String queryString = "Game/player/" + userName;
+
+                    String queryString = "Game/player/" + userName + "/PlayerObject";
                     System.out.println("queryString is: " + queryString);
                     Firebase playerRef1 = mFirebaseRef.child(queryString);
                     Player player = new Player();

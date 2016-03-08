@@ -3,7 +3,6 @@ package cse110winter2015group3.mafia;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -62,7 +61,7 @@ public class StartGameActivity extends AppCompatActivity {
         String userName = strArray[0];
         Player player = new Player();
         player.setPlayerStatus();
-        Firebase playerRef = mFirebaseRef.child("Game/player/"+userName);
+        Firebase playerRef = mFirebaseRef.child("Game/player/"+userName+"/PlayerObject");
         playerRef.setValue(player);
         Firebase playerCountRef = mFirebaseRef.child("Game/playerCount");
         playerCountRef.setValue(1);

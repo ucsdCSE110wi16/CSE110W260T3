@@ -1,24 +1,16 @@
 package cse110winter2015group3.mafia;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
-
-import org.w3c.dom.Text;
-
-import java.util.Map;
 
 public class RevealRoles extends AppCompatActivity {
 
+    private String userRole;
     Firebase firebase;
 
     @Override
@@ -27,17 +19,33 @@ public class RevealRoles extends AppCompatActivity {
         setContentView(R.layout.activity_reveal_roles);
         Firebase.setAndroidContext(this);
         firebase = new Firebase("https://shining-inferno-5525.firebaseio.com/Game/player/Role");
+        Firebase mFireBaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com");
 
         final TextView revealRole = (TextView) findViewById(R.id.revealRole);
 
         // Now we need to check the Player's role by accessing the db before we assign it to a
         // string and then setting it into revealRole
-        String userEmail = firebase.getAuth().getProviderData().get("email").toString();
+        String userEmail = mFireBaseRef.getAuth().getProviderData().get("email").toString();
         String[] strArry = userEmail.split("@");
         String userName = strArry[0];
 
-        //String playerRole = "Your Role is: " + firebase.child(userName+"/Role/Mafia").getKey();
-        // HERE WE USE A GLOBAL STRING FROM AssignRoles.java THAT IS STORED UPON ROLE CREATION
+        /**
+        Firebase roleRef = firebase.child("Game/player/Role/"+userName + "/Role");
+        roleRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //userRole = dataSnapshot.getKey();
+                userRole = dataSnapshot.getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+         */
+
+        //String playerRole = "Your Role is: " + userRole;
         String playerRole = "Your Role is: " + AssignRoles.currentUserRole;
         revealRole.setText(playerRole);
 

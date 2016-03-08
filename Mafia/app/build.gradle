@@ -4,6 +4,13 @@ android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
+    // Used to work around the following warning:
+    // Warning: Conflict with dependency 'com.android.support:support-annotations.' Resolved versions
+    // for app (22.2.1) and test app (23.2.0) differ
+    configurations.all {
+        resolutionStrategy.force 'com.android.support:support-annotations:23.0.1'
+    }
+
     packagingOptions {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE-FIREBASE.txt'
@@ -17,6 +24,9 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+
+        // Specify AndroidJUnitRunner as the default test instrumentation runner
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -30,7 +40,15 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.android.support:design:22.+'
+    compile "com.android.support:support-v4:22.0.+"
+
+    // Firebase and Google-Play-Services dependencies
     compile 'com.firebase:firebase-client-android:2.5.0'
     compile 'com.firebaseui:firebase-ui:0.3.1'
     compile 'com.google.android.gms:play-services-auth:8.3.0'
+
+    // Testing only dependencies
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestCompile 'com.android.support.test:rules:0.4.1'
 }

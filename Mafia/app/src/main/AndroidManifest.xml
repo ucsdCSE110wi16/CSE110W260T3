@@ -37,7 +37,13 @@
         <activity android:name=".RevealRoles" />
         <activity android:name=".CopChatApp" />
         <activity android:name=".CivilianChatApp" />
-        <activity android:name=".DoctorChatApp"></activity>
+        <activity android:name=".DoctorChatApp" />
+        <activity android:name=".Results" />
+        <activity android:name=".CivilianNightPhase" />
+        <activity android:name=".CopNightPhase" />
+        <activity android:name=".DoctorNightPhase" />
+        <activity android:name=".MafiaNightPhase" />
+        <activity android:name=".ModeratorNightPhase"></activity>
     </application>
 
 </manifest>

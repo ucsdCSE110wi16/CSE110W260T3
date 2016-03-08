@@ -9,4 +9,31 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="cse110winter2015group3.mafia.ModeratorNightPhase">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Prompt Mafia To Kill"
+        android:id="@+id/promptMafia"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="promptMafia"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Prompt Doctor To Save"
+        android:id="@+id/promptDoctor"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="promptDoctor"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Prompt Cop To Arrest"
+        android:id="@+id/promptCop"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="promptCop"/>
+
 </RelativeLayout>

@@ -51,6 +51,10 @@ public class Player {
         // }
     }
 
+    public void savePlayer(){
+        canDie = false;
+    }
+
     public void vote() {
         if (canVote) {
             // CHECKBOX VOTING SYSTEM TO BE IMPLEMENTED LATER
