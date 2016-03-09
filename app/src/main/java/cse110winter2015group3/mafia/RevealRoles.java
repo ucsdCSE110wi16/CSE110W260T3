@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -26,20 +27,29 @@ public class RevealRoles extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reveal_roles);
         Firebase.setAndroidContext(this);
+        Firebase newFirebase = new Firebase("https://shining-inferno-5525.firebaseio.com/");
         firebase = new Firebase("https://shining-inferno-5525.firebaseio.com/Game/player/");
 
         final TextView revealRole = (TextView) findViewById(R.id.revealRole);
 
         // Now we need to check the Player's role by accessing the db before we assign it to a
         // string and then setting it into revealRole
-        String userEmail = firebase.getAuth().getProviderData().get("email").toString();
-        String[] strArry = userEmail.split("@");
-        String userName = strArry[0];
-        Firebase roleRef = firebase.child(userName + "/Role");
+        Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/Game");
+        String uID = mFirebaseRef.getAuth().getProviderData().get("email").toString();
+        String [] strArray = uID.split("@");
+        String userName = strArray[0];
+        String queryString = "/player/" + userName + "/Role";
+        Firebase roleRef = mFirebaseRef.child(queryString);
         roleRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 userRole = dataSnapshot.getValue().toString();
+                Toast.makeText(getApplicationContext(), "role is: " + userRole, Toast.LENGTH_LONG).show();
+                //String playerRole = "Your Role is: " + firebase.child(userName+"/Role/Mafia").getKey();
+                // HERE WE USE A GLOBAL STRING FROM AssignRoles.java THAT IS STORED UPON ROLE CREATION
+                String playerRole = "Your Role is: " + userRole;
+                String moderatorPlayer = "Moderator is: " + AssignRoles.moderatorName;
+                revealRole.setText(playerRole + "\n" + moderatorPlayer);
             }
 
             @Override
@@ -47,13 +57,7 @@ public class RevealRoles extends AppCompatActivity {
 
             }
         });
-
-        //String playerRole = "Your Role is: " + firebase.child(userName+"/Role/Mafia").getKey();
-        // HERE WE USE A GLOBAL STRING FROM AssignRoles.java THAT IS STORED UPON ROLE CREATION
-        String playerRole = "Your Role is: " + userRole;
-        revealRole.setText(playerRole);
-
-        int delay = 5000;
+        int delay = 15000;
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -63,5 +67,8 @@ public class RevealRoles extends AppCompatActivity {
             }
         }, delay);
 
+
+
     }
+
 }

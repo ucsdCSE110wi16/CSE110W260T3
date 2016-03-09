@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -40,7 +41,14 @@ public class GameStory extends Activity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        sendToNightPhase();
+        int delay = 15000;
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sendToNightPhase();
+            }
+        }, delay);
     }
     public String readStoryFile() throws IOException {
         InputStream inputStream;
@@ -67,22 +75,18 @@ public class GameStory extends Activity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String role = dataSnapshot.getValue().toString();
-                Toast.makeText(getApplicationContext(),"role is: " + role, Toast.LENGTH_LONG).show();
-                if(role.equals("Mafia")){
-                    startActivity(new Intent(getApplicationContext(),MafiaNightPhase.class));
-                }
-                else if(role.equals("Cop")){
-                    startActivity(new Intent(getApplicationContext(),CopNightPhase.class));
+                Toast.makeText(getApplicationContext(), "role is: " + role, Toast.LENGTH_LONG).show();
+                if (role.equals("Mafia")) {
+                    startActivity(new Intent(getApplicationContext(), MafiaNightPhase.class));
+                } else if (role.equals("Cop")) {
+                    startActivity(new Intent(getApplicationContext(), CopNightPhase.class));
 
-                }
-                else if(role.equals("Moderator")){
-                    startActivity(new Intent(getApplicationContext(),ModeratorNightPhase.class));
-                }
-                else if(role.equals("Doctor")){
-                    startActivity(new Intent(getApplicationContext(),DoctorNightPhase.class));
-                }
-                else if(role.equals("Civilian")){
-                    startActivity(new Intent(getApplicationContext(),CivilianNightPhase.class));
+                } else if (role.equals("Moderator")) {
+                    startActivity(new Intent(getApplicationContext(), ModeratorNightPhase.class));
+                } else if (role.equals("Doctor")) {
+                    startActivity(new Intent(getApplicationContext(), DoctorNightPhase.class));
+                } else if (role.equals("Civilian")) {
+                    startActivity(new Intent(getApplicationContext(), CivilianNightPhase.class));
                 }
             }
 

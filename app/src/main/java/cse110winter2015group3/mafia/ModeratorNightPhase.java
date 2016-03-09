@@ -1,5 +1,7 @@
 package cse110winter2015group3.mafia;
 
+import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,6 +36,15 @@ public class ModeratorNightPhase extends AppCompatActivity {
         setModerator();
         buttonMafia.setClickable(false);
         buttonCop.setClickable(false);
+        Handler handler = new Handler();
+        int delay = 25000;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(getApplicationContext(), Results.class);
+                startActivity(intent);
+            }
+        }, delay);
 
 
     }
@@ -68,7 +79,6 @@ public class ModeratorNightPhase extends AppCompatActivity {
     }
     public void promptMafia(View view){
         moderator.allowMafiaToKill = true;
-        moderator.allowDoctorToSave = false;
         Firebase modRef = mFirebaseRef.child("Moderator");
         modRef.setValue(moderator);
         //check if player was properly deleted
@@ -82,7 +92,6 @@ public class ModeratorNightPhase extends AppCompatActivity {
     }
     public void promptCop(View view){
         moderator.allowCopToInvestigate = true;
-        moderator.allowMafiaToKill = false;
         Firebase modRef = mFirebaseRef.child("Moderator");
         modRef.setValue(moderator);
         //check if player was properly investigated

@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="List of Players Who Can Be Saved"
-        android:id="@+id/textView5"
+        android:id="@+id/listToBeSaved"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -32,5 +32,6 @@
         android:id="@+id/playerSaveButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="39dp" />
+        android:layout_marginBottom="39dp"
+        android:onClick="performDoctorAction"/>
 </RelativeLayout>

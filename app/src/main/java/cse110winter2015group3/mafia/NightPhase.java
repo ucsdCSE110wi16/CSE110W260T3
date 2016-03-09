@@ -20,7 +20,6 @@ public interface NightPhase{
 
     // NIGHTPHASE: MAFIA VOTE TO KILL PLAYER
     public void setValidPlayers();
-    public boolean isPrompted();
     public void setObject();
     public void performAction();
 }

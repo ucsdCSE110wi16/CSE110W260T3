@@ -1,7 +1,10 @@
 package cse110winter2015group3.mafia;
 
+import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,6 +19,7 @@ import com.firebase.client.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -34,37 +38,46 @@ import java.util.Map;
 * */
 public class MafiaNightPhase extends AppCompatActivity implements NightPhase{
     private Mafia mafia;
-    private List<String> playersToKill;
+    private ArrayList<String> playersToKill;
     private boolean promptedToKill;
     private String killedPlayer;
-    private Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/");
+    Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/Game");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mafia_night_phase);
         setValidPlayers();
-        String killablePlayersString = "";
-        for(String player:playersToKill){
-            killablePlayersString += player;
-        }
-        TextView killList = (TextView) findViewById(R.id.killList);
-        killList.setText(killablePlayersString);
         Button killButton = (Button) findViewById(R.id.killPlayerButton);
         setObject();
-        killButton.setClickable(false);
-        if(isPrompted() == true){
-            performAction();
-        }
+        //killButton.setClickable(false);
+        Handler handler = new Handler();
+        int delay = 25000;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(getApplicationContext(), Results.class);
+                startActivity(intent);
+            }
+        }, delay);
+
+    }
+    public void getMafiaObject(Mafia mafiaPlayer){
+        mafia = mafiaPlayer;
     }
     public void setObject(){
         String uID = mFirebaseRef.getAuth().getProviderData().get("email").toString();
         String [] strArray = uID.split("@");
         String userName = strArray[0];
-        Firebase mafiaRef = mFirebaseRef.child("Game/player/" + userName + "/MafiaObject");
+        Toast.makeText(getApplicationContext(),"userName is" + userName, Toast.LENGTH_LONG).show();
+        Firebase mafiaRef = mFirebaseRef.child("/player/" + userName + "/MafiaObject");
         mafiaRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                mafia = dataSnapshot.getValue(Mafia.class);
+                if (!dataSnapshot.exists()) {
+                    Toast.makeText(getApplicationContext(), "Datasnapshot is null", Toast.LENGTH_LONG).show();
+                }
+                Mafia mafiaPlayer = dataSnapshot.getValue(Mafia.class);
+                getMafiaObject(mafiaPlayer);
             }
 
             @Override
@@ -74,13 +87,23 @@ public class MafiaNightPhase extends AppCompatActivity implements NightPhase{
         });
     }
     public void setValidPlayers(){
-        Firebase playerRef = mFirebaseRef.child("Game/player");
+        Firebase playerRef = mFirebaseRef.child("PlayerList/");
         playerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot child: dataSnapshot.getChildren()){
-                    playersToKill.add(child.getValue().toString());
+                if (dataSnapshot.exists()){
+                    Toast.makeText(getApplicationContext(),"DataSnapshotExists",Toast.LENGTH_LONG).show();
                 }
+                else{
+                    Toast.makeText(getApplicationContext(),"DataSnapshot is null",Toast.LENGTH_LONG).show();
+                }
+                playersToKill = (ArrayList<String>)dataSnapshot.getValue();
+                String killablePlayerString = "";
+                for (String entry: playersToKill){
+                    killablePlayerString += entry + "\n";
+                }
+                TextView playerToArrestList = (TextView) findViewById(R.id.killList);
+                playerToArrestList.setText(killablePlayerString);
             }
 
             @Override
@@ -88,42 +111,15 @@ public class MafiaNightPhase extends AppCompatActivity implements NightPhase{
 
             }
         });
+        //for(Map.Entry<Integer,String> entry: playersToKill.entrySet()){
+          //  killablePlayerString += entry.getValue();
+        //}
+        //for (String entry : playersToKill){
+          //  killablePlayerString += entry;
+        //}
+
     }
-    //method to check if moderator has prompted us to kill
-    public boolean isPrompted(){
-        Firebase canKillRef = mFirebaseRef.child("Game/Moderator/");
-        final Query queryRef = canKillRef.orderByChild("allowMafiaToKill").equalTo("true");
-        queryRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                promptedToKill = (Boolean) dataSnapshot.child("allowMafiaToKill").getValue();
-                if (promptedToKill == true) {
-                    queryRef.removeEventListener(this);
-                }
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-        return promptedToKill;
-    }
 
     public void performAction(){
         if (mafia.canKill == false){
@@ -133,15 +129,30 @@ public class MafiaNightPhase extends AppCompatActivity implements NightPhase{
         EditText editName = (EditText) findViewById(R.id.playerToKill);
         editName.setOnKeyListener(null);
         killedPlayer = editName.getText().toString();
+        Toast.makeText(getApplicationContext(), "Killed Player is " + killedPlayer , Toast.LENGTH_SHORT).show();
         editName.setText("");
         Button playerKillButton = (Button) findViewById(R.id.killPlayerButton);
-        if(Arrays.asList(playersToKill).contains(killedPlayer)){
-            playerKillButton.setText("Attempt to Kill Has Been Logged");
-            mafia.killPlayer(killedPlayer);
-        }
-        else{
-            playerKillButton.setText("Please enter a valid player");
-        }
+        playerKillButton.setText("Attempt to Kill Has Been Logged");
+        mafia.killPlayer(killedPlayer);
+    }
+    public void performMafiaAction(View view){
+        Firebase isPromptedRef = mFirebaseRef.child("Moderator");
+        isPromptedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Moderator moderator = dataSnapshot.getValue(Moderator.class);
+                if (moderator.allowMafiaToKill == true) {
+                    performAction();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please Wait Until You Are Prompted By Moderator", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 
 

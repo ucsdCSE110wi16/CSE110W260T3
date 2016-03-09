@@ -9,4 +9,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="cse110winter2015group3.mafia.EndGame">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/gameResultOutput"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

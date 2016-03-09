@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Day Phase"
+        android:text="Please Enter Player You Wish To Kill"
         android:id="@+id/dayPhase"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -22,9 +22,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="You are not a civilian!"
-        android:id="@+id/message"
+        android:text=""
+        android:id="@+id/playerList"
         android:layout_below="@+id/dayPhase"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit Vote To Kill"
+        android:id="@+id/voteButton"
+        android:layout_alignParentBottom="true"
+        android:onClick="playerVote"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/voteText"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/displayResult"
+        android:layout_above="@+id/voteButton"
+        android:layout_alignLeft="@+id/voteText"
+        android:layout_alignStart="@+id/voteText" />
 
 </RelativeLayout>

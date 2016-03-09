@@ -18,13 +18,11 @@ public class Mafia extends Player {
     public Mafia() {
     }
     public void initializeMafiaPlayer(){
-        role = "Mafia";
         canMessage = true;
         canVote = true;
         canKill = true;
     }
 
-    public String getRoleType() { return role; }
     public boolean getCanMessage(){
         return canMessage;
     }
@@ -38,10 +36,25 @@ public class Mafia extends Player {
     public void killPlayer(String playerName) {
         // IMPLEMENT THIS TO "KILL" OTHER PLAYER
         // THAT PLAYER SHOULD BE "DISABLED"
+        final String tempPlayerName = playerName;
+        final Firebase savedPlayerRef = new Firebase("https://shining-inferno-5525.firebaseio.com/Game/Results/SavedPlayer");
         final Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/");
         mFirebaseRef.child("Game/Results/KilledPlayer").setValue(playerName);
         String queryString = "/Game/player/" + playerName;
         final Firebase playerKilledRef = mFirebaseRef.child(queryString);
+        savedPlayerRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(tempPlayerName.equals(dataSnapshot.getValue().toString())){
+                    mFirebaseRef.child("Game/Results/KilledPlayer").setValue("");
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
         playerKilledRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -58,6 +71,7 @@ public class Mafia extends Player {
                     doctor.disablePlayer();
                     player.disablePlayer();
                     playerKilledRef.child("DoctorObject").setValue(doctor);
+                    playerKilledRef.child("PlayerObject").setValue(player);
                 }
                 else if(role.equals("Cop")){
                     Cop cop= dataSnapshot.child("CopObject").getValue(Cop.class);
@@ -65,6 +79,7 @@ public class Mafia extends Player {
                     cop.disablePlayer();
                     player.disablePlayer();
                     playerKilledRef.child("CopObject").setValue(cop);
+                    playerKilledRef.child("PlayerObject").setValue(player);
 
                 }
                 else if(role.equals("Civilian")){
@@ -72,6 +87,7 @@ public class Mafia extends Player {
                     civilian.disablePlayer();
                     player.disablePlayer();
                     playerKilledRef.child("CivilianObject").setValue(civilian);
+                    playerKilledRef.child("PlayerObject").setValue(player);
 
                 }
             }

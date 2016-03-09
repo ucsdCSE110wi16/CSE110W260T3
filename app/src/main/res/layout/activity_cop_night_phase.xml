@@ -32,5 +32,6 @@
         android:id="@+id/playerArrestButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="39dp" />
+        android:layout_marginBottom="39dp"
+        android:onClick="performCopAction"/>
 </RelativeLayout>

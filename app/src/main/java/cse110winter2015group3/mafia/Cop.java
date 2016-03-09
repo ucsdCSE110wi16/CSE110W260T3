@@ -1,5 +1,7 @@
 package cse110winter2015group3.mafia;
 
+import android.widget.Toast;
+
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -16,7 +18,6 @@ public class Cop extends Player {
     }
 
     public void copPlayerInitializer(){
-        role = "Cop";
         canDie = true;
         canVote = true;
         canMessage = true;
@@ -38,9 +39,8 @@ public class Cop extends Player {
     public void investigatePlayer(String playerName) {
 
         final Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/");
-
         String queryString = "/Game/player/" + playerName;
-        mFirebaseRef.child("Game/Results/KilledArrested").setValue(playerName);
+        mFirebaseRef.child("Game/Results/PlayerArrested").setValue(playerName);
         final Firebase playerKilledRef = mFirebaseRef.child(queryString);
         playerKilledRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -54,12 +54,29 @@ public class Cop extends Player {
                     mafia.disablePlayer();
                     player.disablePlayer();
                     playerKilledRef.child("MafiaObject").setValue(mafia);
+                    playerKilledRef.child("PlayerObject").setValue(player);
                 }
                 else{
-                    mFirebaseRef.child("Game/Results/KilledPlayer").setValue("");
+                    mFirebaseRef.child("Game/Results/PlayerArrested").setValue("");
                     return;
                 }
 
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+    }
+    public void arrestMafia(){
+        final Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/");
+        mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int mafiaCount = Integer.parseInt(dataSnapshot.getValue().toString());
+                mafiaCount = mafiaCount - 1;
+                mFirebaseRef.child("MafiaCount").setValue(mafiaCount);
             }
 
             @Override

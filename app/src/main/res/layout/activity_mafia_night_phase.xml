@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:text="Kill Player"
         android:id="@+id/killPlayerButton"
-        android:onClick="mafiaKillPlayer"
+        android:onClick="performMafiaAction"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
