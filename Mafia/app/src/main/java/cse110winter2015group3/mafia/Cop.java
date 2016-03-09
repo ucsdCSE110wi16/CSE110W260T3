@@ -16,7 +16,6 @@ public class Cop extends Player {
     }
 
     public void copPlayerInitializer(){
-        role = "Cop";
         canDie = true;
         canVote = true;
         canMessage = true;
@@ -37,9 +36,8 @@ public class Cop extends Player {
 
     public void investigatePlayer(String playerName) {
         final Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/");
-
         String queryString = "/Game/player/" + playerName;
-        mFirebaseRef.child("Game/Results/KilledArrested").setValue(playerName);
+        mFirebaseRef.child("Game/Results/PlayerArrested").setValue(playerName);
         final Firebase playerKilledRef = mFirebaseRef.child(queryString);
         playerKilledRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -53,12 +51,12 @@ public class Cop extends Player {
                     mafia.disablePlayer();
                     player.disablePlayer();
                     playerKilledRef.child("MafiaObject").setValue(mafia);
+                    playerKilledRef.child("PlayerObject").setValue(player);
                 }
                 else{
-                    mFirebaseRef.child("Game/Results/KilledPlayer").setValue("");
+                    mFirebaseRef.child("Game/Results/PlayerArrested").setValue("");
                     return;
                 }
-
             }
 
             @Override
@@ -66,6 +64,21 @@ public class Cop extends Player {
 
             }
         });
+    }
+    public void arrestMafia(){
+        final Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/");
+        mFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int mafiaCount = Integer.parseInt(dataSnapshot.getValue().toString());
+                mafiaCount = mafiaCount - 1;
+                mFirebaseRef.child("MafiaCount").setValue(mafiaCount);
+            }
 
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 }

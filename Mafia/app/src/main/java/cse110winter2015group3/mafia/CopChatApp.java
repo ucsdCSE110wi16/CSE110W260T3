@@ -62,7 +62,7 @@ public class CopChatApp extends AppCompatActivity {
         Firebase pullUsers = new Firebase("https://shining-inferno-5525.firebaseio.com/Game/player");
 
         String listOfPlayers = "";
-        listOfPlayers = pullUsers.getAuth().getProviderData().get("email").toString();
+        listOfPlayers += pullUsers.getAuth().getProviderData().get("email").toString() + "\n";
         TextView showPlayers = (TextView) findViewById(R.id.showPlayers);
         showPlayers.setText(listOfPlayers);
     }

@@ -10,12 +10,11 @@ public class Player {
     boolean canMessage;
     boolean isDead;
     boolean isArrested;
-    String role;
+
 
     public Player() {}
 
     public void setPlayerStatus() {
-        role = "Player";
         canVote = true;
         canDie = true;
         canMessage = true;
@@ -46,25 +45,14 @@ public class Player {
         canVote = false;
         canMessage = false;
         canDie = false;
+        isDead = true;
+        isArrested = true;
         // if (player.isMafia) {
         //    isArrested = true;
         // }
     }
-
     public void savePlayer(){
         canDie = false;
     }
 
-    public void vote() {
-        if (canVote) {
-            // CHECKBOX VOTING SYSTEM TO BE IMPLEMENTED LATER
-            // FX WILL ALLOW PLAYER CLASS TO VOTE AMONG THE OPTIONS
-        }
-    }
-
-    public void msgBoardPath() {
-        if (canMessage) {
-            // FX LINKING PLAYER TO MSGBOARD AND VICE VERSA
-        }
-    }
 }

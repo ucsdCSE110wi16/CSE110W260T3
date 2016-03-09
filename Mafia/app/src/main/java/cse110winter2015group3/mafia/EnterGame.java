@@ -13,21 +13,18 @@ import com.firebase.client.ValueEventListener;
 
 public class EnterGame extends AppCompatActivity {
 
-    // initialize the fireBase
     public int playerCount;
-    Firebase mFirebaseRef;
+    Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com");
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enter_game);
-        Firebase.setAndroidContext(this);
-        mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com");
         Firebase playerCountRef = mFirebaseRef.child("Game/playerCount");
         playerCountRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 playerCount = Integer.parseInt(dataSnapshot.getValue().toString());
-                if (playerCount >= 5){
+                if (playerCount >= 1) {
                     Button button1 = (Button) findViewById(R.id.ready_to_start);
                     button1.setClickable(true);
                 }
@@ -42,4 +39,5 @@ public class EnterGame extends AppCompatActivity {
     public void goAssignRoles(View view){
         startActivity(new Intent(this, AssignRoles.class));
     }
+
 }

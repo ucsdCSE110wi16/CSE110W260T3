@@ -1,6 +1,8 @@
 package cse110winter2015group3.mafia;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -27,16 +29,25 @@ public class ModeratorNightPhase extends AppCompatActivity {
 
     private Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/Game");
     private Moderator moderator;
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_moderator_night_phase);
         Button buttonMafia = (Button) findViewById(R.id.promptMafia);
         Button buttonCop = (Button) findViewById(R.id.promptCop);
         setModerator();
-        // Set these buttons to be clickable
-        buttonMafia.setClickable(true);
-        buttonCop.setClickable(true);
+        buttonMafia.setClickable(false);
+        buttonCop.setClickable(false);
+        Handler handler = new Handler();
+        int delay = 25000;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(getApplicationContext(), Results.class);
+                startActivity(intent);
+            }
+        }, delay);
+
+
     }
     public void setModerator(){
         Firebase moderatorRef = mFirebaseRef.child("Moderator");
@@ -63,13 +74,12 @@ public class ModeratorNightPhase extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.promptMafia);
         button.setClickable(true);
         Button button1 = (Button) findViewById(R.id.promptDoctor);
-        button1.setClickable(true);
+        button1.setClickable(false);
 
 
     }
     public void promptMafia(View view){
         moderator.allowMafiaToKill = true;
-        moderator.allowDoctorToSave = false;
         Firebase modRef = mFirebaseRef.child("Moderator");
         modRef.setValue(moderator);
         //check if player was properly deleted
@@ -78,12 +88,11 @@ public class ModeratorNightPhase extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.promptCop);
         button.setClickable(true);
         Button button1 = (Button) findViewById(R.id.promptMafia);
-        button1.setClickable(true);
+        button1.setClickable(false);
 
     }
     public void promptCop(View view){
         moderator.allowCopToInvestigate = true;
-        moderator.allowMafiaToKill = false;
         Firebase modRef = mFirebaseRef.child("Moderator");
         modRef.setValue(moderator);
         //check if player was properly investigated

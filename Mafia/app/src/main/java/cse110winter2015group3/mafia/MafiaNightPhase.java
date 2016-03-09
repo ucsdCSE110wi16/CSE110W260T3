@@ -1,21 +1,21 @@
 package cse110winter2015group3.mafia;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 
-import java.util.Arrays;
-import java.util.Map;
+import java.util.ArrayList;
 
 /*
 *Class: MafiaNightPhase.java
@@ -33,34 +33,44 @@ import java.util.Map;
 public class MafiaNightPhase extends AppCompatActivity implements NightPhase{
 
     private Mafia mafia;
-    private Map<String, Player> playersToKill;
+    private ArrayList<String> playersToKill;
     private boolean promptedToKill;
     private String killedPlayer;
-    private Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/");
-
+    Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/Game");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mafia_night_phase);
         setValidPlayers();
-        Button killButton = (Button) findViewById(R.id.killPlayerButton);
         setObject();
-        killButton.setClickable(false);
-        if(isPrompted() == true){
-            performAction();
-        }
-    }
+        Handler handler = new Handler();
+        int delay = 25000;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(getApplicationContext(), Results.class);
+                startActivity(intent);
+            }
+        }, delay);
 
-    @Override
+    }
+    public void getMafiaObject(Mafia mafiaPlayer){
+        mafia = mafiaPlayer;
+    }
     public void setObject(){
         String uID = mFirebaseRef.getAuth().getProviderData().get("email").toString();
         String [] strArray = uID.split("@");
         String userName = strArray[0];
-        Firebase mafiaRef = mFirebaseRef.child("Game/player/" + userName + "/MafiaObject");
+        Toast.makeText(getApplicationContext(),"userName is" + userName, Toast.LENGTH_LONG).show();
+        Firebase mafiaRef = mFirebaseRef.child("/player/" + userName + "/MafiaObject");
         mafiaRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                mafia = dataSnapshot.getValue(Mafia.class);
+                if (!dataSnapshot.exists()) {
+                    Toast.makeText(getApplicationContext(), "Datasnapshot is null", Toast.LENGTH_LONG).show();
+                }
+                Mafia mafiaPlayer = dataSnapshot.getValue(Mafia.class);
+                getMafiaObject(mafiaPlayer);
             }
 
             @Override
@@ -69,57 +79,24 @@ public class MafiaNightPhase extends AppCompatActivity implements NightPhase{
             }
         });
     }
-
-    @Override
     public void setValidPlayers(){
-        Firebase playerRef = mFirebaseRef.child("Game/player");
+        Firebase playerRef = mFirebaseRef.child("PlayerList/");
         playerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                playersToKill = (Map<String, Player>) dataSnapshot.getValue();
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-        String killablePlayersString = "";
-        for (Map.Entry<String, Player> entry : playersToKill.entrySet()) {
-            killablePlayersString += entry.getKey();
-        }
-
-        TextView killList = (TextView) findViewById(R.id.killList);
-        killList.setText(killablePlayersString);
-    }
-
-    //method to check if moderator has prompted us to kill
-    @Override
-    public boolean isPrompted(){
-        Firebase canKillRef = mFirebaseRef.child("Game/Moderator/");
-        final Query queryRef = canKillRef.orderByChild("allowMafiaToKill").equalTo("true");
-        queryRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                promptedToKill = (Boolean) dataSnapshot.child("allowMafiaToKill").getValue();
-                if (promptedToKill == true) {
-                    queryRef.removeEventListener(this);
+                if (dataSnapshot.exists()){
+                    Toast.makeText(getApplicationContext(),"DataSnapshotExists",Toast.LENGTH_LONG).show();
                 }
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                else{
+                    Toast.makeText(getApplicationContext(),"DataSnapshot is null",Toast.LENGTH_LONG).show();
+                }
+                playersToKill = (ArrayList<String>)dataSnapshot.getValue();
+                String killablePlayerString = "";
+                for (String entry: playersToKill){
+                    killablePlayerString += entry + "\n";
+                }
+                TextView playerToArrestList = (TextView) findViewById(R.id.killList);
+                playerToArrestList.setText(killablePlayerString);
             }
 
             @Override
@@ -127,26 +104,40 @@ public class MafiaNightPhase extends AppCompatActivity implements NightPhase{
 
             }
         });
-        return promptedToKill;
     }
 
-    @Override
+
     public void performAction(){
         if (mafia.canKill == false){
-            Toast.makeText(getApplicationContext(), "Mafia Cannot Kill", Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(),"Mafia Cannot Kill", Toast.LENGTH_LONG);
             return;
         }
         EditText editName = (EditText) findViewById(R.id.playerToKill);
         editName.setOnKeyListener(null);
         killedPlayer = editName.getText().toString();
+        Toast.makeText(getApplicationContext(), "Killed Player is " + killedPlayer , Toast.LENGTH_SHORT).show();
         editName.setText("");
         Button playerKillButton = (Button) findViewById(R.id.killPlayerButton);
-        if(Arrays.asList(playersToKill).contains(killedPlayer)){
-            playerKillButton.setText("Attempt to Kill Has Been Logged");
-            mafia.killPlayer(killedPlayer);
-        }
-        else{
-            playerKillButton.setText("Please enter a valid player");
-        }
+        playerKillButton.setText("Attempt to Kill Has Been Logged");
+        mafia.killPlayer(killedPlayer);
+    }
+    public void performMafiaAction(View view){
+        Firebase isPromptedRef = mFirebaseRef.child("Moderator");
+        isPromptedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Moderator moderator = dataSnapshot.getValue(Moderator.class);
+                if (moderator.allowMafiaToKill == true) {
+                    performAction();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please Wait Until You Are Prompted By Moderator", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 }

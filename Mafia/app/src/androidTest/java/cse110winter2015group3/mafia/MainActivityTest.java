@@ -38,7 +38,7 @@ public class MainActivityTest {
         intended(hasComponent(ChatApp.class.getName()));
     }
 
-    // ???PRETEND??? TO BE A USER AND GO THROUGH THE MOTIONS OF A FEATURE, LOGIC SHOULD HAVE ALREADY BEEN
+    // PRETEND TO BE A USER AND GO THROUGH THE MOTIONS OF A FEATURE, LOGIC SHOULD HAVE ALREADY BEEN
     // IMPLEMENTED IN YOUR ACTIVITY FILE
     @Test
     public void testSignupButton() {

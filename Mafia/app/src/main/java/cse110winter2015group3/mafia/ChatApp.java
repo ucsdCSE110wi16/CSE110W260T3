@@ -24,7 +24,6 @@ public class ChatApp extends AppCompatActivity {
 
         Firebase.setAndroidContext(this);
         firebase = new Firebase("https://shining-inferno-5525.firebaseio.com/Game/Chat");
-        //firebase = MainActivity.firebase;
 
         final EditText textEdit = (EditText) this.findViewById(R.id.text_edit);
         Button sendButton = (Button) this.findViewById(R.id.send_button);

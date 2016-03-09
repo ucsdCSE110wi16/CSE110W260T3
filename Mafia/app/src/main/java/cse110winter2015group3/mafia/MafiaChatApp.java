@@ -62,9 +62,9 @@ public class MafiaChatApp extends AppCompatActivity {
         Firebase pullUsers = new Firebase("https://shining-inferno-5525.firebaseio.com/Game/player");
 
         String listOfPlayers = "";
-        if (pullUsers.getAuth().getProviderData().get("Role") == "Mafia") {
-            listOfPlayers = pullUsers.getAuth().getProviderData().get("email").toString();
-        }
+
+        listOfPlayers += pullUsers.getAuth().getProviderData().get("email").toString() + "\n";
+
         TextView showPlayers = (TextView) findViewById(R.id.showPlayers);
         showPlayers.setText(listOfPlayers);
     }

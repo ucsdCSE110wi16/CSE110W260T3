@@ -3,6 +3,7 @@ package cse110winter2015group3.mafia;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +29,14 @@ public class GameStory extends Activity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        sendToNightPhase();
+        int delay = 15000;
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                sendToNightPhase();
+            }
+        }, delay);
     }
     public String readStoryFile() throws IOException {
         InputStream inputStream;

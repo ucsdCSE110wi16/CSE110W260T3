@@ -39,7 +39,8 @@
         <activity android:name=".DoctorNightPhase" />
         <activity android:name=".MafiaNightPhase" />
         <activity android:name=".ModeratorNightPhase" />
-        <activity android:name=".GameHomePage"></activity>
+        <activity android:name=".GameHomePage" />
+        <activity android:name=".EndGame"></activity>
     </application>
 
 </manifest>

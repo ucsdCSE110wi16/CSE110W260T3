@@ -1,27 +1,26 @@
 package cse110winter2015group3.mafia;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 
-import java.util.Arrays;
-import java.util.Map;
+import java.util.ArrayList;
 
 public class CopNightPhase extends AppCompatActivity implements NightPhase{
     private Cop cop;
-    private Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/");
-    private Map<String, Player> validPlayersToArrest;
-    private boolean isPromptedToArrest;
+    private Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/Game");
+    private ArrayList<String> validPlayersToArrest;
     private String playerToArrest;
 
     @Override
@@ -29,22 +28,37 @@ public class CopNightPhase extends AppCompatActivity implements NightPhase{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cop_night_phase);
         setValidPlayers();
-        Button playerArrestButton = (Button) findViewById(R.id.playerArrestButton);
-        playerArrestButton.setClickable(false);
         setObject();
-        setValidPlayers();
-        if (isPrompted() == true){
-            performAction();
-        }
-
+        Handler handler = new Handler();
+        int delay = 25000;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(getApplicationContext(), Results.class);
+                startActivity(intent);
+            }
+        }, delay);
     }
+
+
     @Override
     public void setValidPlayers() {
-        Firebase playerRef = mFirebaseRef.child("Game/player");
+        Firebase playerRef = mFirebaseRef.child("PlayerList/");
         playerRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                validPlayersToArrest = (Map<String, Player>) dataSnapshot.getValue();
+                if (dataSnapshot.exists()) {
+                    Toast.makeText(getApplicationContext(), "DataSnapshotExists", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "DataSnapshot is null", Toast.LENGTH_LONG).show();
+                }
+                validPlayersToArrest = (ArrayList<String>) dataSnapshot.getValue();
+                String arrestPlayerString = "";
+                for (String entry : validPlayersToArrest) {
+                    arrestPlayerString += entry + "\n";
+                }
+                TextView playerToArrestList = (TextView) findViewById(R.id.listPotentialArrested);
+                playerToArrestList.setText(arrestPlayerString);
             }
 
             @Override
@@ -52,23 +66,22 @@ public class CopNightPhase extends AppCompatActivity implements NightPhase{
 
             }
         });
-        String playersToArrest = "";
-        for (Map.Entry<String, Player> entry : validPlayersToArrest.entrySet()) {
-            playersToArrest += entry.getKey();
-        }
-        TextView playerToArrestList = (TextView) findViewById(R.id.listPotentialArrested);
-        playerToArrestList.setText(playersToArrest);
     }
 
+    public void getCopObject(Cop copPlayer){
+        cop = copPlayer;
+    }
+    @Override
     public void setObject(){
         String uID = mFirebaseRef.getAuth().getProviderData().get("email").toString();
         String [] strArray = uID.split("@");
         String userName = strArray[0];
-        Firebase doctorRef = mFirebaseRef.child("Game/player/" + userName + "/CopObject");
+        Firebase doctorRef = mFirebaseRef.child("/player/" + userName + "/CopObject");
         doctorRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                cop = dataSnapshot.getValue(Cop.class);
+                Cop copPlayer = dataSnapshot.getValue(Cop.class);
+                getCopObject(copPlayer);
             }
 
             @Override
@@ -79,54 +92,43 @@ public class CopNightPhase extends AppCompatActivity implements NightPhase{
 
     }
 
-    public boolean isPrompted(){
-        Firebase promptRef = mFirebaseRef.child("Game/Moderator/");
-        final Query queryRef = promptRef.orderByChild("allowCopToArrest").equalTo("true");
-        queryRef.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                isPromptedToArrest = (Boolean) dataSnapshot.child("allowDoctorToSave").getValue();
-                queryRef.removeEventListener(this);
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-        return isPromptedToArrest;
-    }
+    @Override
     public void performAction(){
         if (cop.canArrest == false){
-            Toast.makeText(getApplicationContext(), "Cop Cannot Kill", Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(), "Cop Cannot Arrest", Toast.LENGTH_LONG);
             return;
         }
         EditText editName = (EditText) findViewById(R.id.playerToArrest);
         editName.setOnKeyListener(null);
         playerToArrest = editName.getText().toString();
+        if (playerToArrest.equals("")){
+            Button arrestButton = (Button) findViewById(R.id.playerArrestButton);
+            arrestButton.setText("Please enter a valid UserName");
+        }
         editName.setText("");
         Button playerArrestButton = (Button) findViewById(R.id.playerArrestButton);
-        if(Arrays.asList(validPlayersToArrest).contains(playerToArrest)){
-            playerArrestButton.setText("The player you have selected has been killed");
-            cop.investigatePlayer(playerToArrest);
-        }
-        else{
-            playerArrestButton.setText("Please enter a valid player");
-        }
+        playerArrestButton.setText("The arrest attempt has been logged");
+        cop.investigatePlayer(playerToArrest);
     }
+
+    public void performCopAction(View view){
+        Firebase promptedRef = mFirebaseRef.child("Moderator");
+        promptedRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Moderator moderator = dataSnapshot.getValue(Moderator.class);
+                if (moderator.allowCopToInvestigate == true) {
+                    performAction();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please Wait till Moderator has Prompted You", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+    }
+
 }

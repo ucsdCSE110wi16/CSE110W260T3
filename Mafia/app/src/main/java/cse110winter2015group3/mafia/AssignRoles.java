@@ -18,18 +18,16 @@ import java.util.Map;
 public class AssignRoles extends AppCompatActivity {
 
     public static String currentUserRole;
-    Firebase mFirebaseRef;
+    public static String moderatorName;
+    Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/Game");
     Map<String,Player> playerMap;
     Map<String,String> roleMap;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.assign_roles);
-        Firebase.setAndroidContext(this);
-        mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/Game");
         assignRoles();
-
         // DELAY TIMER BEFORE MOVING ONTO NEXT PAGE --> RevealRoles --> GameStory
-        int delay = 1000;
+        int delay = 5000;
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -39,7 +37,6 @@ public class AssignRoles extends AppCompatActivity {
             }
         }, delay);
     }
-
     private void assignRoles(){
         final Context context = getApplicationContext();
         final int duration = Toast.LENGTH_SHORT;
@@ -51,50 +48,40 @@ public class AssignRoles extends AppCompatActivity {
                     Toast.makeText(context, "The dataSnapshot is null", duration);
                 }
                 playerMap = (Map<String, Player>) dataSnapshot.getValue();
-
+                mFirebaseRef.child("PlayerList").setValue(playerMap.keySet());
                 Firebase playerRoleRef = mFirebaseRef.child("player/");
                 int i = 0;
-
+                int mafiaCount = 0;
                 for (Map.Entry<String, Player> entry : playerMap.entrySet()) {
+
                     String playerName = entry.getKey();
                     Log.d("Player Name", "The player is: " + playerName);
                     int index = i % 5;
                     if (index == 0) {
-
                         //Create a moderator
-
                         Firebase moderatorRef = playerRoleRef.child(playerName + "/Role");
                         moderatorRef.setValue("Moderator");
                         Moderator moderator = new Moderator();
                         moderator.initializeModeratorPlayer();
                         Firebase modRef = mFirebaseRef.child("Moderator");
                         modRef.setValue(moderator);
-                        //playerMap.remove(playerName);
                         Firebase userRef = playerRoleRef.child(playerName + "/ModeratorObject");
                         userRef.setValue(moderator);
                         currentUserRole = "Moderator";
-
+                        moderatorName = playerName;
                     }
                     if (index == 1) {
-                        Doctor doctorPlayer = new Doctor();
-                        doctorPlayer.initializeDoctorPlayer();
-                        Firebase doctorRef = playerRoleRef.child(playerName + "/Role/");
-                        doctorRef.setValue("Doctor");
-                        Firebase docUserRef = playerRoleRef.child(playerName + "/DoctorObject");
-                        docUserRef.setValue(doctorPlayer);
-                        Log.d("Doctor Created", "Creating a Doctor Player");
-                        currentUserRole = "Doctor";
                         //Create A Mafia Player
-                        /**
                         Mafia mafiaPlayer = new Mafia();
                         mafiaPlayer.initializeMafiaPlayer();
                         Firebase mafiaRef = playerRoleRef.child(playerName + "/Role/");
                         mafiaRef.setValue("Mafia");
                         Firebase mafiaUserRef = playerRoleRef.child(playerName + "/MafiaObject");
                         mafiaUserRef.setValue(mafiaPlayer);
+                        mafiaCount = mafiaCount + 1;
+                        mFirebaseRef.child("MafiaCount").setValue(mafiaCount);
                         Log.d("Mafia Created", "Creating a Mafia Player");
                         currentUserRole = "Mafia";
-                         */
                     } else if (index == 2) {
                         //Create A Cop Player
                         Cop copPlayer = new Cop();
@@ -105,6 +92,7 @@ public class AssignRoles extends AppCompatActivity {
                         copUserRef.setValue(copPlayer);
                         Log.d("Cop Created", "Creating a Cop Player");
                         currentUserRole = "Cop";
+
                     } else if (index == 3) {
                         //Create A Doctor
                         Doctor doctorPlayer = new Doctor();
@@ -115,7 +103,8 @@ public class AssignRoles extends AppCompatActivity {
                         docUserRef.setValue(doctorPlayer);
                         Log.d("Doctor Created", "Creating a Doctor Player");
                         currentUserRole = "Doctor";
-                    } else if (index == 4) {
+
+                    } else if (index == 4 || index == 5) {
                         //Create A Villager
                         Civilian civilianPlayer = new Civilian();
                         civilianPlayer.civilianInitializer();
@@ -127,8 +116,11 @@ public class AssignRoles extends AppCompatActivity {
                         currentUserRole = "Civilian";
                     }
                     i = i + 1;
+
                 }
+
             }
+
             @Override
             public void onCancelled(FirebaseError firebaseError) {
 

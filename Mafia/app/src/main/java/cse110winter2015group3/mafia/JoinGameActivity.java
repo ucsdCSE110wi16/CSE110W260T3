@@ -40,6 +40,7 @@ public class JoinGameActivity extends AppCompatActivity {
     }
 
     public void submitCode(View v) {
+
         EditText editName = (EditText) findViewById(R.id.userInput);
         editName.setOnKeyListener(null);
         entryCodeInput = editName.getText().toString();

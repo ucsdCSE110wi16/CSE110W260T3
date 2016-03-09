@@ -14,7 +14,6 @@ import java.util.Random;
 public class StartGameActivity extends AppCompatActivity {
 
     private Firebase mFirebaseRef;
-    //private Firebase codeRef;
     public String gameCode;
 
     @Override
@@ -67,5 +66,6 @@ public class StartGameActivity extends AppCompatActivity {
         playerCountRef.setValue(1);
         startActivity(new Intent(this, EnterGame.class));
     }
+
 
 }
