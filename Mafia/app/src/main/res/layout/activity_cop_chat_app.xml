@@ -18,14 +18,16 @@
         android:layout_centerHorizontal="true"
         android:textSize="30sp"
         android:editable="false"
-        android:textColor="#010101" />
+        android:textColor="#010101"
+        android:background="#ff76fd" />
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/footer"
-        android:layout_below="@+id/text">
+        android:layout_below="@+id/text"
+        android:background="#ffffff">
     </ListView>
 
     <Button
@@ -35,7 +37,8 @@
         android:id="@+id/returnPage"
         android:layout_alignTop="@android:id/list"
         android:layout_alignRight="@android:id/list"
-        android:layout_alignEnd="@android:id/list" />
+        android:layout_alignEnd="@android:id/list"
+        android:background="#ffee71"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -66,7 +69,8 @@
             android:id="@+id/send_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Send" />
+            android:text="Send"
+            android:background="#5d7aff"/>
 
     </LinearLayout>
 

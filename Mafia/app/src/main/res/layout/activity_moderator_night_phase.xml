@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/moderator"
     tools:context="cse110winter2015group3.mafia.ModeratorNightPhase">
 
     <Button
@@ -14,26 +15,39 @@
         android:layout_height="wrap_content"
         android:text="Prompt Mafia To Kill"
         android:id="@+id/promptMafia"
+        android:onClick="promptMafia"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="promptMafia"/>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#ffe9cf"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Prompt Doctor To Save"
         android:id="@+id/promptDoctor"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="promptDoctor"/>
+        android:onClick="promptDoctor"
+        android:layout_marginTop="34dp"
+        android:layout_below="@+id/promptMafia"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="#cc7657"
+        android:layout_alignRight="@+id/promptMafia"
+        android:layout_alignEnd="@+id/promptMafia" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Prompt Cop To Arrest"
         android:id="@+id/promptCop"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="promptCop"/>
-
+        android:onClick="promptCop"
+        android:layout_below="@+id/promptDoctor"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="37dp"
+        android:background="#893713"
+        android:layout_alignRight="@+id/promptDoctor"
+        android:layout_alignEnd="@+id/promptDoctor" />
 </RelativeLayout>

@@ -38,8 +38,8 @@ public class AssignRoles extends AppCompatActivity {
                 startActivity(intent);
             }
         }, delay);
-        //moveToRevealRoles();
     }
+
     private void assignRoles(){
         final Context context = getApplicationContext();
         final int duration = Toast.LENGTH_SHORT;
@@ -60,7 +60,9 @@ public class AssignRoles extends AppCompatActivity {
                     Log.d("Player Name", "The player is: " + playerName);
                     int index = i % 5;
                     if (index == 0) {
+
                         //Create a moderator
+
                         Firebase moderatorRef = playerRoleRef.child(playerName + "/Role");
                         moderatorRef.setValue("Moderator");
                         Moderator moderator = new Moderator();
@@ -71,9 +73,19 @@ public class AssignRoles extends AppCompatActivity {
                         Firebase userRef = playerRoleRef.child(playerName + "/ModeratorObject");
                         userRef.setValue(moderator);
                         currentUserRole = "Moderator";
+
                     }
                     if (index == 1) {
+                        Doctor doctorPlayer = new Doctor();
+                        doctorPlayer.initializeDoctorPlayer();
+                        Firebase doctorRef = playerRoleRef.child(playerName + "/Role/");
+                        doctorRef.setValue("Doctor");
+                        Firebase docUserRef = playerRoleRef.child(playerName + "/DoctorObject");
+                        docUserRef.setValue(doctorPlayer);
+                        Log.d("Doctor Created", "Creating a Doctor Player");
+                        currentUserRole = "Doctor";
                         //Create A Mafia Player
+                        /**
                         Mafia mafiaPlayer = new Mafia();
                         mafiaPlayer.initializeMafiaPlayer();
                         Firebase mafiaRef = playerRoleRef.child(playerName + "/Role/");
@@ -82,6 +94,7 @@ public class AssignRoles extends AppCompatActivity {
                         mafiaUserRef.setValue(mafiaPlayer);
                         Log.d("Mafia Created", "Creating a Mafia Player");
                         currentUserRole = "Mafia";
+                         */
                     } else if (index == 2) {
                         //Create A Cop Player
                         Cop copPlayer = new Cop();

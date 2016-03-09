@@ -34,10 +34,9 @@ public class ModeratorNightPhase extends AppCompatActivity {
         Button buttonMafia = (Button) findViewById(R.id.promptMafia);
         Button buttonCop = (Button) findViewById(R.id.promptCop);
         setModerator();
-        buttonMafia.setClickable(false);
-        buttonCop.setClickable(false);
-
-
+        // Set these buttons to be clickable
+        buttonMafia.setClickable(true);
+        buttonCop.setClickable(true);
     }
     public void setModerator(){
         Firebase moderatorRef = mFirebaseRef.child("Moderator");
@@ -64,7 +63,7 @@ public class ModeratorNightPhase extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.promptMafia);
         button.setClickable(true);
         Button button1 = (Button) findViewById(R.id.promptDoctor);
-        button1.setClickable(false);
+        button1.setClickable(true);
 
 
     }
@@ -79,7 +78,7 @@ public class ModeratorNightPhase extends AppCompatActivity {
         Button button = (Button) findViewById(R.id.promptCop);
         button.setClickable(true);
         Button button1 = (Button) findViewById(R.id.promptMafia);
-        button1.setClickable(false);
+        button1.setClickable(true);
 
     }
     public void promptCop(View view){

@@ -4,13 +4,6 @@ android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
-    // Used to work around the following warning:
-    // Warning: Conflict with dependency 'com.android.support:support-annotations.' Resolved versions
-    // for app (22.2.1) and test app (23.2.0) differ
-    configurations.all {
-        resolutionStrategy.force 'com.android.support:support-annotations:23.0.1'
-    }
-
     packagingOptions {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE-FIREBASE.txt'
@@ -34,6 +27,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    // Used to work around the following warning:
+    // Warning: Conflict with dependency 'com.android.support:support-annotations.' Resolved versions
+    // for app (22.2.1) and test app (23.2.0) differ
+    configurations.all {
+        resolutionStrategy.force 'com.android.support:support-annotations:23.0.1'
+    }
 }
 
 dependencies {
@@ -51,4 +51,7 @@ dependencies {
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
     androidTestCompile 'com.android.support.test:runner:0.4.1'
     androidTestCompile 'com.android.support.test:rules:0.4.1'
+    //androidTestCompile 'com.android.support.test:testing-support-lib:0.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.0'
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2'
 }

@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/night_phase4"
     tools:context="cse110winter2015group3.mafia.MafiaNightPhase">
 
     <TextView
@@ -16,7 +17,9 @@
         android:text="Please Select A Player To Kill"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="#000000"
+        android:textColor="#ffffff" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,10 +27,12 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/killList"
-        android:layout_marginTop="82dp"
+        android:layout_marginTop="78dp"
         android:layout_below="@+id/textView"
         android:layout_alignLeft="@+id/killPlayerButton"
-        android:layout_alignStart="@+id/killPlayerButton" />
+        android:layout_alignStart="@+id/killPlayerButton"
+        android:background="#ffffff"
+        android:textColor="#ff0000" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -42,7 +47,10 @@
         android:text="Kill Player"
         android:id="@+id/killPlayerButton"
         android:onClick="mafiaKillPlayer"
+        android:background="#ffeed3"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#ff0000" />
 
 </RelativeLayout>

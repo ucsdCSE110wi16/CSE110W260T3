@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/doc5"
     tools:context="cse110winter2015group3.mafia.DoctorNightPhase">
 
     <TextView
@@ -16,14 +17,23 @@
         android:text="List of Players Who Can Be Saved"
         android:id="@+id/listToBeSaved"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:textStyle="bold"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/playerSaveButton"
+        android:layout_alignEnd="@+id/playerSaveButton"
+        android:textColor="#7d7474" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/playerToSave"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:text="players"
+        android:layout_below="@+id/listToBeSaved"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="27dp"
+        android:textColor="#dfaf8b" />
 
     <Button
         android:layout_width="wrap_content"
@@ -31,7 +41,8 @@
         android:text="Save Player"
         android:id="@+id/playerSaveButton"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="39dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#3fb34b" />
 
 </RelativeLayout>

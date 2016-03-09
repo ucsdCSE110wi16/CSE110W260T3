@@ -23,13 +23,8 @@
             android:label="@string/title_activity_start_game"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".JoinGameActivity" />
-        <activity
-            android:name=".GameHomePage"
-            android:label="@string/title_activity_game_home_page"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ChatApp" />
         <activity android:name=".EnterGame" />
-        <activity android:name=".NightPhase" />
         <activity android:name=".DayPhase" />
         <activity android:name=".AssignRoles" />
         <activity android:name=".MafiaChatApp" />
@@ -43,7 +38,8 @@
         <activity android:name=".CopNightPhase" />
         <activity android:name=".DoctorNightPhase" />
         <activity android:name=".MafiaNightPhase" />
-        <activity android:name=".ModeratorNightPhase"></activity>
+        <activity android:name=".ModeratorNightPhase" />
+        <activity android:name=".GameHomePage"></activity>
     </application>
 
 </manifest>
