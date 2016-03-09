@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/crime_scene"
+    android:background="@drawable/day_phase2"
     tools:context="cse110winter2015group3.mafia.DayPhase">
 
     <TextView
@@ -17,15 +17,22 @@
         android:text="Day Phase"
         android:id="@+id/dayPhase"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#fecf9f" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="You are not a civilian!"
+        android:text="The victim is Kesden"
         android:id="@+id/message"
         android:layout_below="@+id/dayPhase"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="60dp"
+        android:layout_alignLeft="@+id/dayPhase"
+        android:layout_alignStart="@+id/dayPhase"
+        android:textColor="#000000" />
 
 </RelativeLayout>

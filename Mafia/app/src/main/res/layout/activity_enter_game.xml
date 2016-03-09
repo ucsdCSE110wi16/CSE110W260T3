@@ -11,26 +11,15 @@
         android:text="List of Players"
         android:id="@+id/player_list"
         android:layout_gravity="center_horizontal"
-        android:textAlignment="center"
-        android:background="#6cec9b"
-        android:textColor="#d622e0"
-        android:textColorHighlight="#de3f3f"
-        android:textIsSelectable="true"
-        android:textStyle="italic" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Enter your character name:"
-        android:ems="10"
-        android:id="@+id/enter_name" />
+        android:textAlignment="gravity"
+        android:background="#583eff" />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:id="@+id/listView"
-        android:background="#f3f1ce" />
+        android:background="#d5ffdc"
+        android:layout_weight="1.09" />
 
     <Button
         android:layout_width="wrap_content"
@@ -39,7 +28,5 @@
         android:id="@+id/ready_to_start"
         android:layout_gravity="center_horizontal"
         android:background="#f31212"
-        android:textColor="#f8f5f5"
-        android:textStyle="bold"
-        android:ellipsize="marquee" />
+        android:textColor="#f8f5f5" />
 </LinearLayout>

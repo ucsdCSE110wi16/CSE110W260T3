@@ -1,6 +1,5 @@
 package cse110winter2015group3.mafia;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 import com.firebase.client.Firebase;
 import com.firebase.ui.FirebaseListAdapter;
 
-public class ChatApp extends AppCompatActivity {
+public class DoctorChatApp extends AppCompatActivity {
 
     public static Firebase firebase;
     FirebaseListAdapter<ChatMessage> mListAdapter;
@@ -20,11 +19,10 @@ public class ChatApp extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_app);
+        setContentView(R.layout.activity_cop_chat_app);
 
         Firebase.setAndroidContext(this);
-        firebase = new Firebase("https://shining-inferno-5525.firebaseio.com/Game/Chat");
-        //firebase = MainActivity.firebase;
+        firebase = new Firebase("https://shining-inferno-5525.firebaseio.com/Game/Chat/Doctor Chat");
 
         final EditText textEdit = (EditText) this.findViewById(R.id.text_edit);
         Button sendButton = (Button) this.findViewById(R.id.send_button);
@@ -50,30 +48,22 @@ public class ChatApp extends AppCompatActivity {
         };
         listView.setAdapter(mListAdapter);
 
-        Button toHomePage = (Button) findViewById(R.id.GoToHomepage);
-        toHomePage.setOnClickListener(new View.OnClickListener() {
+        Button returnButton = (Button) findViewById(R.id.returnPage);
+        returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), GameHomePage.class));
+                finish();
             }
         });
 
-        Button toLogOut = (Button) findViewById(R.id.logout);
-        toLogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                firebase.unauth();
-                //finish();
-                if (firebase.getAuth() == null) {
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                }
-            }
-        });
-    }
+        // OK , now we need to list the current users in the chat!
+        // It can just be a textView under the return button
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mListAdapter.cleanup();
+        Firebase pullUsers = new Firebase("https://shining-inferno-5525.firebaseio.com/Game/player");
+
+        String listOfPlayers = "";
+        listOfPlayers = pullUsers.getAuth().getProviderData().get("email").toString();
+        TextView showPlayers = (TextView) findViewById(R.id.showPlayers);
+        showPlayers.setText(listOfPlayers);
     }
 }

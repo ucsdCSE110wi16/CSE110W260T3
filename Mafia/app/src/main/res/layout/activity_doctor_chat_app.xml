@@ -7,35 +7,50 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="cse110winter2015group3.mafia.ChatApp">
+    tools:context="cse110winter2015group3.mafia.DoctorChatApp"
+    android:background="#ffffff">
 
-
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Logout"
-        android:id="@+id/logout"
-        android:layout_alignTop="@android:id/list"
-        android:layout_alignRight="@android:id/list"
-        android:layout_alignEnd="@android:id/list"
-        android:background="#ff3737" />
+        android:text="Doctor Chat"
+        android:id="@+id/text"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        android:editable="false"
+        android:textColor="#010101"
+        android:background="#ff76fd" />
 
-    <Button
-        android:id="@+id/GoToHomepage"
-        android:text="Home Page"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#ffee71"
-        android:layout_below="@+id/logout"
-        android:layout_alignLeft="@+id/logout"
-        android:layout_alignStart="@+id/logout" />
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/footer"
-        android:background="#ffffff">
+        android:layout_below="@+id/text">
     </ListView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Return"
+        android:id="@+id/returnPage"
+        android:layout_alignTop="@android:id/list"
+        android:layout_alignRight="@android:id/list"
+        android:layout_alignEnd="@android:id/list"
+        android:background="#ffee71" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Player List:"
+        android:id="@+id/showPlayers"
+        android:textColor="#10d60c"
+        android:layout_marginTop="47dp"
+        android:layout_below="@+id/returnPage"
+        android:layout_alignRight="@+id/returnPage"
+        android:layout_alignEnd="@+id/returnPage" />
+
     <LinearLayout
         android:id="@+id/footer"
         android:layout_alignParentBottom="true"
@@ -56,8 +71,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Send"
-            android:background="#5d7aff" />
+            android:background="#ffee71" />
 
     </LinearLayout>
+
 
 </RelativeLayout>
