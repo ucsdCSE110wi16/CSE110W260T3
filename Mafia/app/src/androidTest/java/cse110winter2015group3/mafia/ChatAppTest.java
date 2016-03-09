@@ -53,6 +53,10 @@ public class ChatAppTest {
         // Message has been pushed to DB. Now we need to pull back the chatMessage data
     }
 
+    /**
+     * Given a user When the logout button is pressed Then he/she is logged out of account And the
+     * app returns the the Login In page (Main Activity)
+     */
     @Test
     public void testLogoutButton() {
         onView(withId(R.id.logout)).perform(click());
@@ -91,6 +95,10 @@ public class ChatAppTest {
         });
     }
 
+    /**
+     * Given a user When he/she presses the GoToHomePage button then the next activity (GameHomePage)
+     * is started.
+     */
     @Test
     public void testGoToHomePageButton() {
         onView(withId(R.id.GoToHomepage)).perform(click());

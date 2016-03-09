@@ -67,5 +67,4 @@ public class StartGameActivity extends AppCompatActivity {
         startActivity(new Intent(this, EnterGame.class));
     }
 
-
 }

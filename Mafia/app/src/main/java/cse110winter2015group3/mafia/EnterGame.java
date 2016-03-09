@@ -24,7 +24,7 @@ public class EnterGame extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 playerCount = Integer.parseInt(dataSnapshot.getValue().toString());
-                if (playerCount >= 1) {
+                if (playerCount >= 2) {
                     Button button1 = (Button) findViewById(R.id.ready_to_start);
                     button1.setClickable(true);
                 }

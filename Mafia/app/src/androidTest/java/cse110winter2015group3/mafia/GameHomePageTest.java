@@ -33,6 +33,11 @@ public class GameHomePageTest {
     public IntentsTestRule<GameHomePage> GameHomePageRule = new IntentsTestRule(GameHomePage.class);
 
     // Test StartGameButton
+
+    /**
+     * Given a user that has logged in, when the StartGameButton is pressed the next activity,
+     * StartGameActivity, is started.
+     */
     @Test
     public void testStartGameButton() {
         onView(withId(R.id.button)).perform(click());
@@ -40,6 +45,11 @@ public class GameHomePageTest {
     }
 
     // Test JoinGameButton
+
+    /**
+     * Given a user that has logged in, when the StartGameButton is pressed the next activity,
+     * JoinGameActivity, is started.
+     */
     @Test
     public void testJoinGameButton() {
         onView(withId(R.id.button2)).perform(click());

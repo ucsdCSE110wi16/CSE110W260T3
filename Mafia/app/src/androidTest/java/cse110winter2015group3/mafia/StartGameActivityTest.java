@@ -65,6 +65,11 @@ public class StartGameActivityTest {
     }
 
     // Test enterGame Button if it starts the next activity, EnterGame.java
+
+    /**
+     * Given a user that has logged in, when the enterGameButton is pressed the next activity,
+     * EnterGame is started.
+     */
     @Test
     public void enterGameButtonTest() {
         onView(withId(R.id.button4)).perform(click());
