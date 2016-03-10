@@ -1,0 +1,137 @@
+/**
+ * File: ScenariosDoc.txt
+ * Written By: Stan Deng
+ * Group: CSE110W260T3 AKA "The Big Three"
+ * Description: BDD-Style Acceptance Tests Scenario Outline
+ * Project Description: Mafia game
+ * 
+ */
+
+1). MainActivity scenario
+In this activity the user is prompted to log in or to create an account on 
+Firebase using an email address and password. There are no restrictions on
+either field other than that they cannot be null, and the email address
+cannot already be in use.
+
+Signing Up:
+Given a user when they open the app and press signup with the correct fields
+then their account data is stored on Firebase.
+Given a user when they open the app and press signup with incorrect or invalid
+data fields then they are prompted to re-enter their information.
+
+Logging In:
+Given a user when  they open the app and press login with the correct fields
+then the next intent/activity is started (ChatApp).
+Given a user when they open the app and press login with incorrect fields then
+they are prompted to re-enter their information.
+
+2). ChatApp scenario
+In this activity the user has successfully logged into their account and can
+message anyone else currently logged into the database by typing a message and
+pressing the send button. When the send button is clicked the ChatMessage that
+holds their username and the message is pushed to our Firebase server and also
+retrieved as a list for the user to view. There is also a button to logout,
+which logs the user out and brings them back to MainActivity to login. Finally,
+the HomePage button brings them to the game home page.
+
+Logging out:
+Given a user that has logged in, when they press the logOut button then their
+account is flushed from the Firebase server and the previous activity (Main..)
+is started.
+
+Home Page:
+Given a user that has logged in, when they press the toHomePage button then
+the next activity/intent is started (GameHomePage).
+
+Send Message Button:
+Given a user that has typed a message when they press the send button then
+they should see their message in the listView.
+
+3). GameHomePage scenario
+There are two buttons on this page that each link to an activity.
+
+StartGame Button:
+Given a user that has logged in when the StartGame button is pressed the next
+activity/intent begins (StartGameActivity).
+
+JoinGame Button:
+Given a user that has logged in when the JoinGame button is pressed the next
+activity/intent begins (JoinGameActivity).
+
+4). StartGameActivity scenario
+This activity generates a 4-digit game code that is shown to the user and which
+he can share with other players. There is chatApp button that opens up message
+box activity so that the user can share the game code generated when entering
+StartGameActivity. There is also a button to begin the game
+
+ChatApp button:
+Given a user that has a gamecode to share when the chatApp button is pressed
+then the next activity begins. 
+
+Begin Game button:
+Given a user that has a gamecode when the begin game button is pressed then the next activity is started(EnterGame activity).
+
+5). JoinGameActivity scenario
+This activity allows the user to enter a gamecode provided in StartGameActivity
+
+Enter button:
+Given a user that has typed in the gamecode when the enter button is pressed 
+then the gamecode is validated and they have joined the game and the next
+activity is started (EnterGame)
+
+6). EnterGame scenario
+A list of the current players is displayed and a button is clickable only if
+5 players are present.
+
+ReadyToStart button:
+Given a minimum of 5 users that have enter the EnterGame lobby when they press
+the button then the next activity begins (AssignRoles) and the game starts.
+
+7). AssignRoles scenario
+The users are assigned their roles using an iterative algorithm: the first user
+is always the moderator, then for all other players afterwards they are assign-
+ed Mafia, Cop, Doctor, Civilian subsequently thereafter. The activity delays/
+pauses for X-seconds while the roles are assigned and then the next activity 
+begins (RevealRoles).
+
+8). RevealRoles scenario
+Retrieves each players roles as well as who the moderator is from Firebase, and displays on the interface for x-seconds before the next activity begins 
+(GameStory).
+
+9). GameStory scenario
+Reads a text file that contains a story for the game. Delays for X-seconds then
+the next activity starts.
+
+10). NightPhase (MafiaNightPhase/CopNP/DoctorNP/CivilianNP/ModeratorNP)
+Each player class has a unique night phase. Mafia are allowed to vote to kill
+a player, cops are allowed to arrest a player, and doctors can heal a player.
+Civilians do nothing during the Night Phase. 
+Mafia -> canKill other player classes except moderator/Mafia
+Doctor -> can save anyone
+Cop -> can investigate anyone but only arrest if the player is mafia
+
+Voting:
+Given a list of player names when a user types a name in then presses the
+enter button then the action is performed if the requirements are met and the
+next activity is started.
+
+11). Results scenario
+Displays the list of players that were killed/healed/arrested during previous
+nightphase. Pauses then starts the next activity.
+
+12). DayPhase 
+Everyone gets to vote on who to kill and the total number of votes for each
+player is taken into account. The player with the greatest number of votes is 
+killed.
+
+Voting:
+Given a list of player names when a user types a name in then presses the enter
+button then the vote is tallied and the action is performed and then the next
+activity is started (EndGame)
+
+13). EndGame scenario
+Checks the number of Mafia players and the number of players. If the number of
+Mafia players == the number of players then the Mafia have won and the game
+is over and the players are prompted a message that mafia has won. If the # of
+mafia players is 0 than the civilians have won and that message is prompted.
+Otherwise loop back to nightphase.
