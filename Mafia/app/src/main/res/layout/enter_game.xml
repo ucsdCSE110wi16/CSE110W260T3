@@ -5,22 +5,16 @@
     android:weightSum="1"
     android:background="@drawable/night_phase3">
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="List of Players"
-        android:id="@+id/player_list"
+        android:text="Lobby Chat"
+        android:id="@+id/lobbyChat"
         android:layout_gravity="center_horizontal"
-        android:layout_weight="1.03"
-        android:textAlignment="gravity"
-        android:background="#080a58"
-        android:textColor="#ffb85b"/>
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:id="@+id/listView" />
+        android:layout_marginTop="150dp"
+        android:background="#f31212"
+        android:textColor="#f8f5f5"
+        android:onClick="goToLobbyChat"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -28,6 +22,8 @@
         android:text="Ready To Start"
         android:id="@+id/ready_to_start"
         android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/lobbyChat"
+        android:layout_marginTop="125dp"
         android:background="#f31212"
         android:textColor="#f8f5f5"
         android:onClick="goAssignRoles"/>

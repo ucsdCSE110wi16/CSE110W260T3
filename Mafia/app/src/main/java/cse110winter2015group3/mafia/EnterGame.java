@@ -24,7 +24,7 @@ public class EnterGame extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 playerCount = Integer.parseInt(dataSnapshot.getValue().toString());
-                if (playerCount >= 2) {
+                if (playerCount >= 5) {
                     Button button1 = (Button) findViewById(R.id.ready_to_start);
                     button1.setClickable(true);
                 }
@@ -38,6 +38,10 @@ public class EnterGame extends AppCompatActivity {
     }
     public void goAssignRoles(View view){
         startActivity(new Intent(this, AssignRoles.class));
+    }
+
+    public void goToLobbyChat(View view) {
+        startActivity(new Intent(this, LobbyChat.class));
     }
 
 }

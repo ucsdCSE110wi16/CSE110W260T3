@@ -40,7 +40,8 @@
         <activity android:name=".ModeratorNightPhase" />
         <activity android:name=".GameHomePage" />
         <activity android:name=".EndGame" />
-        <activity android:name=".AssignRoles"></activity>
+        <activity android:name=".AssignRoles" />
+        <activity android:name=".LobbyChat"></activity>
     </application>
 
 </manifest>
