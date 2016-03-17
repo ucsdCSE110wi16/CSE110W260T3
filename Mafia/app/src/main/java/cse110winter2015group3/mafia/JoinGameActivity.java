@@ -15,7 +15,7 @@ import com.firebase.client.ValueEventListener;
 
 public class JoinGameActivity extends AppCompatActivity {
 
-    private Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com");
+    private Firebase mFirebaseRef;
 
     public String entryCodeInput = "";
     public int playerCount;
@@ -24,6 +24,8 @@ public class JoinGameActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_game);
+        Firebase.setAndroidContext(this);
+        mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com");
         Firebase playerCountRef2 = mFirebaseRef.child("Game/playerCount");
         playerCountRef2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

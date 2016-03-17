@@ -75,4 +75,9 @@ public class ChatApp extends AppCompatActivity {
         super.onDestroy();
         mListAdapter.cleanup();
     }
+
+    public void setOnLogOut(View v) {
+        firebase.unauth();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    }
 }

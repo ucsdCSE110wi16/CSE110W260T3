@@ -26,7 +26,6 @@
         <activity android:name=".ChatApp" />
         <activity android:name=".EnterGame" />
         <activity android:name=".DayPhase" />
-        <activity android:name=".AssignRoles" />
         <activity android:name=".MafiaChatApp" />
         <activity android:name=".GameStory" />
         <activity android:name=".RevealRoles" />
@@ -40,7 +39,8 @@
         <activity android:name=".MafiaNightPhase" />
         <activity android:name=".ModeratorNightPhase" />
         <activity android:name=".GameHomePage" />
-        <activity android:name=".EndGame"></activity>
+        <activity android:name=".EndGame" />
+        <activity android:name=".AssignRoles"></activity>
     </application>
 
 </manifest>

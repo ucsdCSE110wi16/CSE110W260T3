@@ -5,14 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.AuthData;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.ui.FirebaseListAdapter;
 import com.firebase.ui.auth.core.AuthProviderType;
 import com.firebase.ui.auth.core.FirebaseLoginBaseActivity;
 import com.firebase.ui.auth.core.FirebaseLoginError;
@@ -57,8 +54,6 @@ public class MainActivity extends FirebaseLoginBaseActivity {
         toRemovePrevChat.removeValue();
 
         // IN END GAME WE CAN DELETE EERYTHING INCLUDING PLAYERS!
-
-
 
         firebase.unauth();
 

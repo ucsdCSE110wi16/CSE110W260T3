@@ -2,9 +2,9 @@ package cse110winter2015group3.mafia;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -19,12 +19,14 @@ public class AssignRoles extends AppCompatActivity {
 
     public static String currentUserRole;
     public static String moderatorName;
-    Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/Game");
+    Firebase mFirebaseRef;
     Map<String,Player> playerMap;
-    Map<String,String> roleMap;
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.assign_roles);
+        Firebase.setAndroidContext(this);
+        setContentView(R.layout.activity_assign_roles);
+        mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com/Game");
         assignRoles();
         // DELAY TIMER BEFORE MOVING ONTO NEXT PAGE --> RevealRoles --> GameStory
         int delay = 5000;
@@ -37,6 +39,7 @@ public class AssignRoles extends AppCompatActivity {
             }
         }, delay);
     }
+
     private void assignRoles(){
         final Context context = getApplicationContext();
         final int duration = Toast.LENGTH_SHORT;
@@ -92,7 +95,6 @@ public class AssignRoles extends AppCompatActivity {
                         copUserRef.setValue(copPlayer);
                         Log.d("Cop Created", "Creating a Cop Player");
                         currentUserRole = "Cop";
-
                     } else if (index == 3) {
                         //Create A Doctor
                         Doctor doctorPlayer = new Doctor();
@@ -103,7 +105,6 @@ public class AssignRoles extends AppCompatActivity {
                         docUserRef.setValue(doctorPlayer);
                         Log.d("Doctor Created", "Creating a Doctor Player");
                         currentUserRole = "Doctor";
-
                     } else if (index == 4 || index == 5) {
                         //Create A Villager
                         Civilian civilianPlayer = new Civilian();
@@ -116,15 +117,12 @@ public class AssignRoles extends AppCompatActivity {
                         currentUserRole = "Civilian";
                     }
                     i = i + 1;
-
                 }
-
-            }
-
+             }
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-
             }
         });
     }
 }
+

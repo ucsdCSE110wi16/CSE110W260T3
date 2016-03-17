@@ -24,7 +24,9 @@
         android:layout_alignTop="@android:id/list"
         android:layout_alignRight="@android:id/list"
         android:layout_alignEnd="@android:id/list"
-        android:background="#ff3737"/>
+        android:background="#ff3737"
+        android:clickable="true"
+        android:onClick="setOnLogOut"/>
 
     <Button
         android:id="@+id/GoToHomepage"
