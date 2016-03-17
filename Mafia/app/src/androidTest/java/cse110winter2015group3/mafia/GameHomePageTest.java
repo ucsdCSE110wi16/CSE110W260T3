@@ -10,8 +10,10 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 
@@ -40,6 +42,7 @@ public class GameHomePageTest {
      */
     @Test
     public void testStartGameButton() {
+        onView(withId(R.id.button)).check(matches(isClickable()));
         onView(withId(R.id.button)).perform(click());
         intended(hasComponent(StartGameActivity.class.getName()));
     }
@@ -52,6 +55,7 @@ public class GameHomePageTest {
      */
     @Test
     public void testJoinGameButton() {
+        onView(withId(R.id.button2)).check(matches(isClickable()));
         onView(withId(R.id.button2)).perform(click());
         intended(hasComponent(JoinGameActivity.class.getName()));
     }

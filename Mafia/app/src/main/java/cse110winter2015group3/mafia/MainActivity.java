@@ -91,6 +91,10 @@ public class MainActivity extends FirebaseLoginBaseActivity {
                                     Toast.makeText(getApplicationContext(),
                                             "Invalid password!", Toast.LENGTH_SHORT).show();
                                     break;
+                                case FirebaseError.INVALID_EMAIL:
+                                    Toast.makeText(getApplicationContext(), "Invalid email!",
+                                            Toast.LENGTH_SHORT).show();
+                                    break;
                                 default:
                                     Toast.makeText(getApplicationContext(),
                                             "Error authenticating (default)!",
@@ -117,8 +121,26 @@ public class MainActivity extends FirebaseLoginBaseActivity {
 
                     @Override
                     public void onError(FirebaseError firebaseError) {
-                        Toast.makeText(getApplicationContext(),
-                                "This email is already being used!", Toast.LENGTH_SHORT).show();
+                        switch (firebaseError.getCode()) {
+                            case FirebaseError.EMAIL_TAKEN:
+                                Toast.makeText(getApplicationContext(),
+                                        "This email is already being used!",
+                                        Toast.LENGTH_SHORT).show();
+                                break;
+                            case FirebaseError.INVALID_EMAIL:
+                                Toast.makeText(getApplicationContext(),
+                                        "Invalid Email!", Toast.LENGTH_SHORT).show();
+                                break;
+                            case FirebaseError.INVALID_PASSWORD:
+                                Toast.makeText(getApplicationContext(),
+                                        "Invalid Password!", Toast.LENGTH_SHORT).show();
+                                break;
+                            default:
+                                Toast.makeText(getApplicationContext(),
+                                        "Error signing up!", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+
                     }
                 });
             }

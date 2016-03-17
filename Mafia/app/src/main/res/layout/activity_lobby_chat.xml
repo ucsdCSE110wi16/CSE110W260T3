@@ -40,16 +40,6 @@
         android:layout_alignEnd="@android:id/list"
         android:background="#ffee71"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Player List:"
-        android:id="@+id/showPlayers"
-        android:layout_below="@+id/returnPage"
-        android:layout_alignRight="@android:id/list"
-        android:layout_alignEnd="@android:id/list"
-        android:textColor="#10d60c" />
-
     <LinearLayout
         android:id="@+id/footer"
         android:layout_alignParentBottom="true"

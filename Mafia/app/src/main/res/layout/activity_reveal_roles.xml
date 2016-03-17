@@ -20,6 +20,19 @@
         android:layout_marginTop="132dp"
         android:textColor="#000000"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:clickable="false"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:text="Moderator is: "
+        android:id="@+id/modRole"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/revealRole"
+        android:layout_marginTop="50dp"
+        android:textColor="#000000"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

@@ -56,14 +56,5 @@ public class LobbyChat extends AppCompatActivity {
             }
         });
 
-        // OK , now we need to list the current users in the chat!
-        // It can just be a textView under the return button
-
-        Firebase pullUsers = new Firebase("https://shining-inferno-5525.firebaseio.com/Game/player");
-
-        String listOfPlayers = "";
-        listOfPlayers += pullUsers.getAuth().getProviderData().get("email").toString() + "\n";
-        TextView showPlayers = (TextView) findViewById(R.id.showPlayers);
-        showPlayers.setText(listOfPlayers);
     }
 }

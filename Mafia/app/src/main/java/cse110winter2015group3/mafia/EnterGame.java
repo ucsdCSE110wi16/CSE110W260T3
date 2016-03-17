@@ -13,12 +13,14 @@ import com.firebase.client.ValueEventListener;
 
 public class EnterGame extends AppCompatActivity {
 
-    public int playerCount;
-    Firebase mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com");
+    public static int playerCount;
+    Firebase mFirebaseRef;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enter_game);
+        Firebase.setAndroidContext(this);
+        mFirebaseRef = new Firebase("https://shining-inferno-5525.firebaseio.com");
         Firebase playerCountRef = mFirebaseRef.child("Game/playerCount");
         playerCountRef.addValueEventListener(new ValueEventListener() {
             @Override

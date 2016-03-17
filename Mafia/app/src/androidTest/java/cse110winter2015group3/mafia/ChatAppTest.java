@@ -9,10 +9,24 @@ import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.typeText;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isClickable;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 
 /**
  * Created by Stan on 3/8/2016.
+ *
+ * Given a user that has logged in when they type a message into the chat message box then the send
+ * message button should display the message in the listView pulled from the database.
+ *
+ * Given a user that has logged in when the logout button is pressed then they should be logged out
+ * of their account and be brought back to the login page.
+ *
+ * Given a user that has logged in when the homepage button is pressed then they should be brought
+ * to the HomePage activity.
  */
 
 @RunWith(AndroidJUnit4.class)
@@ -23,9 +37,18 @@ public class ChatAppTest {
 
     /**
      * IN THIS TEST WE WILL TEST:
-     *      1). The Logout button correctly logs out the player and returns to the login page
-     *      2). The goToGamePage button correctly starts the next activity
+     *      1). Message typed to be sent into chat list view is displayed correctly and the send
+     *          button is clickable!
+     *      2). The Logout button correctly logs out the player and returns to the login page
+     *      3). The goToGamePage button correctly starts the next activity
      */
+
+    @Test
+    public void testSendText() {
+        onView(withId(R.id.text_edit)).perform(typeText("Hello World Message"), closeSoftKeyboard());
+        onView(withId(R.id.text_edit)).check(matches(isDisplayed()));
+        onView(withId(R.id.send_button)).check(matches(isClickable()));
+    }
 
 
     /**
@@ -34,6 +57,8 @@ public class ChatAppTest {
      */
     @Test
     public void testLogOutButton() {
+
+        onView(withId(R.id.logout)).check(matches(isClickable()));
         onView(withId(R.id.logout)).perform(click());
     }
 
@@ -44,6 +69,7 @@ public class ChatAppTest {
      */
     @Test
     public void testGoToHomePageButton() {
+        onView(withId(R.id.GoToHomepage)).check(matches(isClickable()));
         onView(withId(R.id.GoToHomepage)).perform(click());
 
     }

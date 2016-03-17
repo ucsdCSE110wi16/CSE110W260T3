@@ -29,6 +29,7 @@ public class MainActivityTest {
 
     private String validEmail;
     private String validPw;
+    private String unusedEmail;
 
     @Rule
     public IntentsTestRule<MainActivity> mainActivityRule1 = new IntentsTestRule(MainActivity.class);
@@ -38,6 +39,7 @@ public class MainActivityTest {
     public void generateValid() {
         validEmail = "a@z.com";
         validPw = "a";
+        unusedEmail = "100@b.com";
     }
 
 
@@ -59,8 +61,20 @@ public class MainActivityTest {
      */
     @Test
     public void testSignupButton() {
-        onView(withId(R.id.emailAddress)).perform(typeText(validEmail), closeSoftKeyboard());
+        onView(withId(R.id.emailAddress)).perform(typeText(unusedEmail), closeSoftKeyboard());
         onView(withId(R.id.password)).perform(typeText(validPw), closeSoftKeyboard());
         onView(withId(R.id.signup)).perform(click());
+    }
+
+    /**
+     * Given a user When he fills in an invalid email And clicks the login/signup button Then
+     * an error message should be displayed.
+     */
+    @Test
+    public void testInvalidEmail() {
+        onView(withId(R.id.emailAddress)).perform(typeText("test"), closeSoftKeyboard());
+        onView(withId(R.id.password)).perform(typeText(validPw), closeSoftKeyboard());
+        onView(withId(R.id.login)).perform(click());
+        // Will throw message : Error authenticating (default)!
     }
 }
